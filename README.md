@@ -8,10 +8,10 @@ Ruby on Rails Practice Repo
 
 ### Implementation
 * Get daily top 50 turnover(成交量) and save to database
-  * Check [this](http://stock.wearn.com/qua.asp) to find the turnover today
-  * You have to save following stock information to database
+  * Check [this](http://stock.wearn.com/qua.asp) to find the turnover everyday
+  * You have to save following stock informations to database
     ![Alt text](http://i.imgur.com/fqem08U.png)
-  * You can provide a RESTful API to do this job or another way you like
+  * You can provide a RESTful API to do this job or another way you think better
 
 * Give a RESTful API which can get the turnover by ```date(日期)``` and ```ID(代號)```
 * Give a RESTful API which can sort by any stock information and save the result as a file
