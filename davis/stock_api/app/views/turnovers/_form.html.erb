@@ -1,0 +1,17 @@
+<%= form_for(turnover) do |f| %>
+  <% if turnover.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(turnover.errors.count, "error") %> prohibited this turnover from being saved:</h2>
+
+      <ul>
+      <% turnover.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

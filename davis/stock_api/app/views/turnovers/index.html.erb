@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Turnovers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @turnovers.each do |turnover| %>
+      <tr>
+        <td><%= link_to 'Show', turnover %></td>
+        <td><%= link_to 'Edit', edit_turnover_path(turnover) %></td>
+        <td><%= link_to 'Destroy', turnover, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Turnover', new_turnover_path %>
