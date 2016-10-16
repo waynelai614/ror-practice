@@ -22,17 +22,6 @@ module Turnover
     include Mongoid::Document
     embedded_in :TurnoverPerDay
 
-    # field :range, type: BigDecimal
-    # field :number, type: BigDecimal
-    # field :name, type: BigDecimal
-    # field :startPrice, type: BigDecimal
-    # field :highestPrice, type: BigDecimal
-    # field :lowestPrice, type: BigDecimal
-    # field :yesClose, type: BigDecimal
-    # field :todayClose, type: BigDecimal
-    # field :dealPrice, type: BigDecimal
-    # field :dealDelta, type: BigDecimal
-
     def initialize(range, number, name, startPrice, highestPrice, lowestPrice, yesClose, todayClose, dealPrice, dealDelta)
       @range = range
       @number = number

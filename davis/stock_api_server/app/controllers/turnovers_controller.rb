@@ -18,8 +18,8 @@ class TurnoversController < ApplicationController
     oneDayTurnovers.save!
     puts oneDayTurnovers
 
-    # render json: Crawl.crawl
-    render json: { :hello=> "hello" }
+    render json: Crawl.crawl
+    # render json: { :hello=> "hello" }
   end
 
   # GET /turnovers/1
