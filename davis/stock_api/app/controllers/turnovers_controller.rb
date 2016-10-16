@@ -2,14 +2,23 @@ class TurnoversController < ApplicationController
   before_action :set_turnover, only: [:show, :edit, :update, :destroy]
 
   # GET /turnovers
-  # GET /turnovers.json
   def index
-    @turnovers = Turnover.all
+    oneDayTurnovers = Turnover::TurnoverPerDay.new
+
+    [[1,2,3,4,5,6,7,8,9,10], [1,2,3,4,5,6,7,8,9,10], [1,2,3,4,5,6,7,8,9,10]].each{ |obj|
+        oneTurnover = Turnover::Turnover.new(obj[0],obj[1],obj[2],obj[3],obj[4],obj[5],obj[6],obj[7],obj[8],obj[9])
+        oneDayTurnovers.push(oneTurnover)
+    }
+
+    puts oneDayTurnovers
+
+    render json: Crawl.crawl
   end
 
   # GET /turnovers/1
   # GET /turnovers/1.json
   def show
+    #
   end
 
   # GET /turnovers/new

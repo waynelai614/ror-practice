@@ -14,7 +14,8 @@ class Crawl
 
         links do
           explore xpath: '//*[@class="wrapper"]/div[1]/div[1]/div[2]/ul/li[1]/a' do |e|
-            e.gsub(/Explore/, "Love")
+            e
+            # e.gsub(/Explore/, "Love")
           end
 
           features css: '.features'
