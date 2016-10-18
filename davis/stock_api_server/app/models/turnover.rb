@@ -1,65 +1,56 @@
-# class Turnover
-#   include Mongoid::Document
-# end
-module Turnover
-  class TurnoverPerDay
-    include Mongoid::Document
-    include Mongoid::Timestamps
-    include Mongoid::Attributes::Dynamic
-    store_in collection: "TurnoverPerDay", database: "turnovers"
-    field :day, type: DateTime
-    field :turnovers, type: Array
-    embeds_many :Turnover
+class Turnover
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
+  store_in collection: "Turnover", database: "turnovers"
 
-    def addTrunover(trunover)
-      self.turnovers.push(trunover.mongoize)
-    end
+  field :day
+  field :range
+  field :number
+  field :name
+  field :startPrice
+  field :highestPrice
+  field :lowestPrice
+  field :yesClose
+  field :todayClose
+  field :dealPrice
+  field :dealDelta
 
+  def mongoize
+    {
+      :range => self.range,
+      :number => self.number,
+      :name => self.name,
+      :startPrice => self.startPrice,
+      :highestPrice => self.highestPrice,
+      :lowestPrice => self.lowestPrice,
+      :yesClose => self.yesClose,
+      :todayClose => self.todayClose,
+      :dealPrice => self.dealPrice,
+      :dealDelta => self.dealDelta
+    }
   end
 
-
-  class Turnover
-    include Mongoid::Document
-    embedded_in :TurnoverPerDay
-
-    def initialize(range, number, name, startPrice, highestPrice, lowestPrice, yesClose, todayClose, dealPrice, dealDelta)
-      @range = range
-      @number = number
-      @name = name
-      @startPrice = startPrice
-      @highestPrice = highestPrice
-      @lowestPrice = lowestPrice
-      @yesClose = yesClose
-      @todayClose = todayClose
-      @dealPrice = dealPrice
-      @dealDelta = dealDelta
+  class << self
+    def demongoize(object)
+      Turnover.new(
+        range: object["range"],
+        number: object["number"],
+        name: object["name"],
+        startPrice: object["startPrice"],
+        highestPrice: object["highestPrice"],
+        lowestPrice: object["lowestPrice"],
+        yesClose: object["yesClose"],
+        todayClose: object["todayClose"],
+        dealPrice: object["dealPrice"],
+        dealDelta: object["dealDelta"]
+      )
     end
 
-    def mongoize
-      {
-        :range => @range,
-        :number => @number,
-        :name => @name,
-        :startPrice => @startPrice,
-        :highestPrice => @highestPrice,
-        :lowestPrice => @lowestPrice,
-        :yesClose => @yesClose,
-        :todayClose => @todayClose,
-        :dealPrice => @dealPrice,
-        :dealDelta => @dealDelta
-      }
-    end
-
-    class << self
-      def demongoize(object)
-        Turnover.new(object["range"], object["number"], object["name"], object["startPrice"], object["highestPrice"], object["lowestPrice"], object["yesClose"], object["todayClose"], object["dealPrice"], object["dealDelta"])
-      end
-
-      def mongoize(object)
-        case object
-        when Turnover then object.mongoize
-        else object
-        end
+    def mongoize(object)
+      case object
+      when Turnover then object.mongoize
+      else object
       end
     end
   end

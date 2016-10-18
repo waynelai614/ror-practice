@@ -7,16 +7,17 @@ class TurnoversController < ApplicationController
   #   # @turnovers = Turnover.all
   # end
   def index
-    oneDayTurnovers = Turnover::TurnoverPerDay.new
-    oneDayTurnovers.day = DateTime.new
+    oneDayTurnovers = TurnoverPerDay.new
+    oneDayTurnovers.day = DateTime.now.beginning_of_day
     oneDayTurnovers.turnovers = []
 
     [[1,2,3,4,5,6,7,8,9,10], [1,2,3,4,5,6,7,8,9,10], [1,2,3,4,5,6,7,8,9,10]].each{ |obj|
-        oneTurnover = Turnover::Turnover.new(obj[0],obj[1],obj[2],obj[3],obj[4],obj[5],obj[6],obj[7],obj[8],obj[9])
+        oneTurnover = Turnover.new(range: obj[0], number: obj[1], name: obj[2], startPrice: obj[3], highestPrice: obj[4], lowestPrice: obj[5], yesClose: obj[6], todayClose: obj[7], dealPrice: obj[8], dealDelta: obj[9])
+        oneTurnover.day = DateTime.now.beginning_of_day
+        oneTurnover.save!
         oneDayTurnovers.addTrunover(oneTurnover)
     }
     oneDayTurnovers.save!
-    puts oneDayTurnovers
 
     render json: Crawl.crawl
     # render json: { :hello=> "hello" }
