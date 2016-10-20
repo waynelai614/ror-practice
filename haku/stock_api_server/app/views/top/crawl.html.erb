@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>Turnovers</th>
+  </tr>
+  <% @rows.each do |row| %>
+    <% if row %>
+      <tr>
+        <td><%= row[:stock_code] %></td>
+        <td><%= row[:stock_name] %></td>
+        <td><%= row[:opening_price] %></td>
+        <td><%= row[:highest_price] %></td>
+        <td><%= row[:lowest_price] %></td>
+        <td><%= row[:closing_ytd] %></td>
+        <td><%= row[:closing_today] %></td>
+        <td><%= row[:trading_volume] %></td>
+        <td><%= row[:change] %></td>
+        <td><%= row[:change_limit] %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
