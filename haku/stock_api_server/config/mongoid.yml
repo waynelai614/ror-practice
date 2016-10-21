@@ -5,7 +5,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: haku_development
+      database: turnovers_dev
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -24,10 +24,10 @@ development:
         #     - use: web
 
         # The name of the user for authentication.
-        # user: 'user'
+        user: 'ror-practice'
 
         # The password of the user for authentication.
-        # password: 'password'
+        password: '1234'
 
         # The user's database roles.
         # roles:
@@ -134,7 +134,7 @@ development:
 test:
   clients:
     default:
-      database: haku_test
+      database: turnovers_test
       hosts:
         - localhost:27017
       options:
