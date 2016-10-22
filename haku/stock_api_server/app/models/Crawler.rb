@@ -29,4 +29,16 @@ class Crawler
       .compact
       .first 50
   end
+
+  def self.crawlToDB
+    rows = Crawler.crawl
+
+    Turnover.delete_today
+
+    rows.each do |row|
+      Turnover.save_new_turnovers(row)
+    end
+
+    rows
+  end
 end
