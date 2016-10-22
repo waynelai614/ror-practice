@@ -52,3 +52,6 @@ gem 'watir'
 gem 'watir-webdriver'
 
 gem 'nokogiri'
+
+# used for cron job
+gem 'whenever', require: false
