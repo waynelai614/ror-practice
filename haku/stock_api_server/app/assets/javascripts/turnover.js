@@ -7,7 +7,7 @@ var employees = new Vue({
     var that;
     that = this;
     $.ajax({
-      url: '/top/index.json',
+      url: 'turnovers/index.json',
       success: function(res) {
         that.turnovers = res;
       }
