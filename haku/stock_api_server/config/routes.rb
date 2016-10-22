@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'top/index'
-
-  resources :turnovers
+  resources :turnovers, only: [:index]
   get '/crawl', to: 'top#crawl'
-
-  root 'top#index'
 end
