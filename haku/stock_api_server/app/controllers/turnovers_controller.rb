@@ -1,5 +1,9 @@
 class TurnoversController < ApplicationController
   def index
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = "1728000"
+
     if params[:date] && params[:code]
       render_by_date_and_code
     elsif params[:date]
