@@ -2,6 +2,8 @@
   <div id="app">
     <choose-date ref="chooseDate"></choose-date>
     <search-button :search="getDataFromDate"></search-button>
+    <input type="text" name="code" v-model="code">
+    <search-button :search="getDataFromCode"></search-button>
     <turnover-table :turnovers="turnovers" :update="updateTurnovers"></turnover-table>
   </div>
 </template>
@@ -21,6 +23,7 @@ export default {
   data() {
     return {
       turnovers: [],
+      code: null,
     };
   },
   methods: {
@@ -31,6 +34,15 @@ export default {
       this.$http.get('turnovers.json', {
         params: {
           date: this.$refs.chooseDate.date,
+        },
+      }).then((res) => {
+        this.updateTurnovers(res.data);
+      });
+    },
+    getDataFromCode() {
+      this.$http.get('turnovers.json', {
+        params: {
+          code: this.code,
         },
       }).then((res) => {
         this.updateTurnovers(res.data);
