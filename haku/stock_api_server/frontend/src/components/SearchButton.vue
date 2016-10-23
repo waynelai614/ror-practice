@@ -1,13 +1,10 @@
 <template>
-  <button>Search turnovers on this date</button>
+  <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Search turnovers on this date</button>
 </template>
 
 <script>
 export default {
   name: 'search-button',
-  data() {
-    return {};
-  },
 };
 </script>
 

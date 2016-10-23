@@ -1,12 +1,10 @@
 <template>
-  <div class="date">
-    <input type="date" name="date" v-model="date">
-  </div>
+  <input type="date" name="date" v-model="date">
 </template>
 
 <script>
 export default {
-  name: 'date',
+  name: 'choose-date',
   data() {
     const today = new Date();
     return {

@@ -1,17 +1,8 @@
 <template>
-  <table>
+  <table class="mdl-data-table mdl-js-data-table">
     <thead>
       <tr>
-        <th>Stock Code</th>
-        <th>Stock Name</th>
-        <th>Opening Price</th>
-        <th>Highest Price</th>
-        <th>Lowest Price</th>
-        <th>Closing of Yesterday</th>
-        <th>Closing of Today</th>
-        <th>Trading of Volume</th>
-        <th>Change</th>
-        <th>Change Limit</th>
+        <th v-for="header in headers">{{ header }}</th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +27,19 @@ export default {
   name: 'turnover-table',
   data() {
     return {
-      turnovers: [],
+      turnovers: [''],
+      headers: [
+        'Stock Code',
+        'Stock Name',
+        'Opening Price',
+        'Highest Price',
+        'Lowest Price',
+        'Closing of Yesterday',
+        'Closing of Today',
+        'Trading of Volume',
+        'Change',
+        'Change Limit',
+      ],
     };
   },
   mounted() {
