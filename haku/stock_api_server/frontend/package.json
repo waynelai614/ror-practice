@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "ror-practice front-end w/ Vue",
   "author": "CYBAI <cyb.ai.815@gmail.com>",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
