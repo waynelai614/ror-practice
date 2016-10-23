@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <choose-date ref="chooseDate"></choose-date>
-    <search-button></search-button>
-    <turnover-table></turnover-table>
+    <search-button :search="getDataFromDate"></search-button>
+    <turnover-table :turnovers="turnovers" :update="updateTurnovers"></turnover-table>
   </div>
 </template>
 
@@ -17,6 +17,25 @@ export default {
     ChooseDate,
     TurnoverTable,
     SearchButton,
+  },
+  data() {
+    return {
+      turnovers: [],
+    };
+  },
+  methods: {
+    updateTurnovers(turnovers) {
+      this.turnovers = turnovers;
+    },
+    getDataFromDate() {
+      this.$http.get('turnovers.json', {
+        params: {
+          date: this.$refs.chooseDate.date,
+        },
+      }).then((res) => {
+        this.updateTurnovers(res.data);
+      });
+    },
   },
 };
 </script>

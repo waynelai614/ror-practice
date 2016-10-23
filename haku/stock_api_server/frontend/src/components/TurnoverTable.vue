@@ -25,9 +25,9 @@
 <script>
 export default {
   name: 'turnover-table',
+  props: ['turnovers', 'update'],
   data() {
     return {
-      turnovers: [''],
       headers: [
         'Stock Code',
         'Stock Name',
@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     this.$http.get('turnovers.json').then((res) => {
-      this.turnovers = res.data;
+      this.update(res.data);
     });
   },
 };
