@@ -2,7 +2,10 @@
   <table class="mdl-data-table mdl-js-data-table">
     <thead>
       <tr>
-        <th v-for="header in headers">{{ header }}</th>
+        <th
+          v-for="header in headers"
+          @click="sortTurnovers(header.replace(/\s/g, '_').toLowerCase())"
+        >{{ header }}</th>
       </tr>
     </thead>
     <tbody>
@@ -40,12 +43,40 @@ export default {
         'Change',
         'Change Limit',
       ],
+      ascend: {},
     };
   },
   mounted() {
     this.$http.get('turnovers.json').then((res) => {
       this.update(res.data);
     });
+  },
+  methods: {
+    sortTurnovers(sortCategory) {
+      let category = sortCategory;
+      switch (category) {
+        case 'closing_of_yesterday':
+          category = 'closing_ytd';
+          break;
+        case 'closing_of_today':
+          category = 'closing_today';
+          break;
+        case 'trading_of_volume':
+          category = 'trading_volume';
+          break;
+        default:
+          break;
+      }
+
+      if (this.ascend[category] === undefined) {
+        this.ascend[category] = true;
+      }
+
+      this.turnovers.sort((a, b) => (
+        (this.ascend[category]) ? a[category] - b[category] : b[category] - a[category]
+      ));
+      this.ascend[category] = !this.ascend[category];
+    },
   },
 };
 </script>
