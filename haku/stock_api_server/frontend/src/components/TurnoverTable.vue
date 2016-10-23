@@ -10,6 +10,7 @@
     </thead>
     <tbody>
       <tr v-for="turnover in turnovers">
+        <td>{{ formatDate(turnover.timestamp) }}</td>
         <td>{{ turnover.stock_code }}</td>
         <td>{{ turnover.stock_name }}</td>
         <td>{{ turnover.opening_price }}</td>
@@ -32,6 +33,7 @@ export default {
   data() {
     return {
       headers: [
+        'Timestamp',
         'Stock Code',
         'Stock Name',
         'Opening Price',
@@ -52,6 +54,9 @@ export default {
     });
   },
   methods: {
+    formatDate(date) {
+      return new Date(date).toLocaleDateString();
+    },
     sortTurnovers(sortCategory) {
       let category = sortCategory;
       switch (category) {
