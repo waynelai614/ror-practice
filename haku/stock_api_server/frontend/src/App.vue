@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <choose-date ref="chooseDate"></choose-date>
+    <mdl-datepicker v-model="date"></mdl-datepicker>
     <search-button :search="getDataFromDate"></search-button>
     <input type="text" name="code" v-model="code">
     <search-button :search="getDataFromCode"></search-button>
@@ -9,20 +9,22 @@
 </template>
 
 <script>
-import ChooseDate from './components/ChooseDate';
+import 'vue-mdl-datepicker/dist/vue-mdl-datepicker.css';
+import MdlDatepicker from 'vue-mdl-datepicker';
 import TurnoverTable from './components/TurnoverTable';
 import SearchButton from './components/SearchButton';
 
 export default {
   name: 'app',
   components: {
-    ChooseDate,
+    MdlDatepicker,
     TurnoverTable,
     SearchButton,
   },
   data() {
     return {
       turnovers: [],
+      date: new Date(),
       code: null,
     };
   },
@@ -31,9 +33,10 @@ export default {
       this.turnovers = turnovers;
     },
     getDataFromDate() {
+      const date = `${(this.date.getFullYear())}-${(this.date.getMonth() + 1)}-${this.date.getDate()}`;
       this.$http.get('turnovers.json', {
         params: {
-          date: this.$refs.chooseDate.date,
+          date,
         },
       }).then((res) => {
         this.updateTurnovers(res.data);

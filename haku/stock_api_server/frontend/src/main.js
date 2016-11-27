@@ -8,6 +8,8 @@ Vue.http.options.root = `http://${location.hostname}:5100`;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  template: '<App/>',
   components: { App },
+  render(h) {
+    return h(App);
+  },
 });
