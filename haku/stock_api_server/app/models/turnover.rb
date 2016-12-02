@@ -1,7 +1,6 @@
 class Turnover
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Attributes::Dynamic
 
   field :stock_code, type: Integer
   field :stock_name, type: String

@@ -1,2 +1,2 @@
 webpack: cd frontend && npm install && npm run dev
-rails: rails server
+rails: rails server -p 5100
