@@ -2,13 +2,22 @@
   <button
     class="mdl-button mdl-js-button mdl-js-ripple-effect"
     @click="searchTurnovers"
-  >Search turnovers on this date</button>
+  >{{text}}</button>
 </template>
 
 <script>
 export default {
   name: 'search-button',
-  props: ['search'],
+  props: {
+    search: {
+      type: Function,
+      required: true,
+    },
+    text: {
+      type: String,
+      default() { return 'Search turnovers on this date'; },
+    },
+  },
   methods: {
     searchTurnovers() {
       this.search();

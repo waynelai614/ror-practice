@@ -3,7 +3,10 @@
     <mdl-datepicker v-model="date"></mdl-datepicker>
     <search-button :search="getDataFromDate"></search-button>
     <input type="text" name="code" v-model="code">
-    <search-button :search="getDataFromCode"></search-button>
+    <search-button
+      :search="getDataFromCode"
+      text="Search turnovers on this code"
+    ></search-button>
     <turnover-table :turnovers="turnovers" :update="updateTurnovers"></turnover-table>
   </div>
 </template>
