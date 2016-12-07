@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207142513) do
+ActiveRecord::Schema.define(version: 20161207164200) do
 
   create_table "turnovers", force: :cascade do |t|
     t.string   "stock_number"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20161207142513) do
     t.string   "stock_quote_change"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "stock_company_hyperlink"
   end
 
 end
