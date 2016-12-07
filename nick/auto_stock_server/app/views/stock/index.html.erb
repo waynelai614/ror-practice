@@ -1,0 +1,79 @@
+<section class="hero is-primary is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-half">
+          <h1 class="title is-1">
+            Stock report
+          </h1>
+          <h2 class="subtitle">
+            watch today's daily report of stock, or pick up another day.
+          </h2>
+        </div>
+        <div class="column">
+            <a class="button is-light is-outlined is-medium">Date</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- turnovers tables -->
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>排</th>
+        <th>代號</th>
+        <th>名稱</th>
+        <th>開盤價</th>
+        <th>最高價</th>
+        <th>最低價</th>
+        <th>昨收盤</th>
+        <th>今收盤</th>
+        <th>成交量</th>
+        <th>漲跌</th>
+        <th>漲跌幅</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @turnovers.each_with_index do |stock, index| %>
+        <!--  initialize -->
+        <!-- iconClassName -->
+        <!-- stockChangeClassName -->
+        <% if stock.stock_change >= 0%>
+          <% stockChangeClassName = "stock_price_up" %>
+        <% else %>
+          <% stockChangeClassName = "stock_price_down" %>
+        <% end %>
+
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= stock.stock_number %></td>
+        <td><a href="http://stock.wearn.com/a6116.html"><font size="3"><%= stock.stock_name %></font></a></td>
+        <td><%= stock.stock_opening_price %></td>
+        <td><%= stock.stock_highest_price %></td>
+        <td><%= stock.stock_floor_price %></td>
+        <td><%= stock.stock_closing_yesterday %></td>
+        <td><%= stock.stock_closing_today %></td>
+        <td><%= stock.stock_volumn %></td>
+
+
+        <td class=<%= stockChangeClassName %> >
+          <span class= "icon is-small">
+            <% if stock.stock_change >= 0%>
+              <i class="fa fa-arrow-up"></i>
+            <% else %>
+              <i class="fa fa-arrow-down"></i>
+            <% end %>
+          </span>
+          <span><%= stock.stock_change %></span>
+        </td>
+        <td><%= stock.stock_quote_change %></td>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
