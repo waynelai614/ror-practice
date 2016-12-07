@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+
+
+ html {
+   background-color: #fff !important;
+ }
+ .stock_price_up {
+   color: #ff3860;
+
+ }
+
+ .stock_price_down {
+   color: #23d160;
+
+ }
