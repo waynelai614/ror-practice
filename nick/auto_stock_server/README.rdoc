@@ -1,28 +1,32 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Overview
+> parse stock turnover from [here](http://stock.wearn.com/qua.asp)
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+## How to use
+
+First, u have to install Rails
+
+#### start server
+
+```
+git checkout dev/Nick
+cd ./nick/auto_stock_server
+bundle install
+rake db:migrate
+rails s
+```
+
+#### get stock message
+localhost:3000 
+
+#### update stock message
+localhost:3000/stock/update
+
+## Todo lists
+
+- [ ] restful route design
+- [ ] auto-select stock info ( no more sending request manually )
+- [ ] date-picker
+- [ ] data validation
+- [ ] view by react
+- [ ] nosql database like mongodb
