@@ -1,18 +1,30 @@
 <section class="hero is-primary is-medium">
   <div class="hero-body">
     <div class="container">
+      <h1 class="title is-1">
+        Stock report
+      </h1>
+      <h2 class="subtitle ">
+        watch today's daily report of stock, or pick up another day.
+      </h2>
+
       <div class="columns">
-        <div class="column is-half">
-          <h1 class="title is-1">
-            Stock report
-          </h1>
-          <h2 class="subtitle">
-            watch today's daily report of stock, or pick up another day.
-          </h2>
+        <div class="column is-2">
+          <input class="input is-large" type="text" placeholder="Stock number">
         </div>
-        <div class="column">
-            <a class="button is-light is-outlined is-medium">Date</a>
+        <div class="column is-offset-1 is-5">
+          <div class="tabs is-medium">
+            <ul>
+              <li><a>Start Date</a></li>
+              <span class= "icon is-large">
+                <i class="fa fa-arrow-right"></i>
+              </span>
+              <li><a>End Date</a></li>
+            </ul>
+          </div>
         </div>
+
+        <div class="column"></div>
       </div>
     </div>
   </div>
@@ -23,17 +35,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th>排</th>
-        <th>代號</th>
-        <th>名稱</th>
-        <th>開盤價</th>
-        <th>最高價</th>
-        <th>最低價</th>
-        <th>昨收盤</th>
-        <th>今收盤</th>
-        <th>成交量</th>
-        <th>漲跌</th>
-        <th>漲跌幅</th>
+        <th><a class = "button is-outlined"> 排 </a></th>
+        <th><a class = "button is-outlined"> 日期 </a></th>
+        <th><a class = "button is-outlined"> 代號 </a></th>
+        <th><a class = "button is-outlined"> 名稱 </a></th>
+        <th><a class = "button is-outlined"> 開盤價 </a></th>
+        <th><a class = "button is-outlined"> 最高價 </a></th>
+        <th><a class = "button is-outlined"> 最低價 </a></th>
+        <th><a class = "button is-outlined"> 昨收盤 </a></th>
+        <th><a class = "button is-outlined"> 今收盤 </a></th>
+        <th><a class = "button is-outlined"> 成交量 </a></th>
+        <th><a class = "button is-outlined"> 漲跌 </a></th>
+        <th><a class = "button is-outlined"> 漲跌幅 </a></th>
       </tr>
     </thead>
 
@@ -50,6 +63,7 @@
 
       <tr>
         <td><%= index + 1 %></td>
+        <td> <%= stock.timestamps.month.to_s + " / " + stock.timestamps.day.to_s %></td>
         <td><%= stock.stock_number %></td>
         <td><a href= <%=  stock.stock_company_hyperlink %> ><font size="3"><%= stock.stock_name %></font></a></td>
         <td><%= stock.stock_opening_price %></td>
@@ -57,7 +71,7 @@
         <td><%= stock.stock_floor_price %></td>
         <td><%= stock.stock_closing_yesterday %></td>
         <td><%= stock.stock_closing_today %></td>
-        <td><%= stock.stock_volumn %></td>
+        <td><%= number_with_delimiter(stock.stock_volumn, :delimiter => ',') %></td>
 
 
         <td class=<%= stockChangeClassName %> >
