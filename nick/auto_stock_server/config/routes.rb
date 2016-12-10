@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # stock restful route
-  # resources :stock
+  resources :stock
 
   # url = controller/action/id
-  match ':controller(/:action(/:id(.:format)))', :via => :all
+  # match ':controller(/:action(/:id(.:format)))', :via => :all
 
   # set home page
   root :to => "stock#index"
