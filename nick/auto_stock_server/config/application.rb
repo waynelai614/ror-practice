@@ -29,6 +29,11 @@ module AutoStockServer
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    #Depending on your version of Rails, you may also need to configure the orm to be Mongoid in application.rb.
+    config.generators do |g|
+      g.orm :mongoid
+    end
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end

@@ -9,8 +9,8 @@ class StockController < ApplicationController
 
 
 
-  # update data
-  def update
+  # create data
+  def create
     # parse html
     html = open("http://stock.wearn.com/qua.asp").read
     charset = Nokogiri::HTML(html).meta_encoding
@@ -20,14 +20,13 @@ class StockController < ApplicationController
 
     # parse node
     node = doc.css('.stockalllistbg1, .stockalllistbg2')
-    node.each do |tr|
+    turnovers = node.map do |tr|
 
       # select sibling elements
       company = tr.css('>td')
 
       # parse the company href in element a
       href = company[2].css('> a')[0]['href']
-      puts href.strip
 
       # determine the value of change positive or negative by font color.
       # 009900 : green => price down
@@ -41,7 +40,7 @@ class StockController < ApplicationController
         change = 0
       end
 
-      turnoverInfo = {
+      {
         :stock_number => company[1].text.strip,
         :stock_name => company[2].text.strip,
         :stock_company_hyperlink => href.strip,
@@ -50,17 +49,27 @@ class StockController < ApplicationController
         :stock_floor_price => company[5].text.strip.to_f,
         :stock_closing_yesterday => company[6].text.strip.to_f,
         :stock_closing_today => company[7].text.strip.to_f,
-        :stock_volumn => company[8].text.strip,
+        :stock_volumn => company[8].text.strip.tr(',', '').to_i,
         :stock_change => change,
         :stock_quote_change => company[10].text.strip
       }
 
-      # save to server
-      @newTurnover = Turnover.new(turnoverInfo)
-      @newTurnover.save
-    end
+    end 
+      
+    # save to database
+    turnovers.first(50).each do |turnover|
+
+      newTurnover = Turnover.new(turnover)
+      newTurnover.save
+
+      # puts "wtf man"
+      # puts turnover[:stock_volumn]
+    end     
+
+    
+    puts turnovers.length
 
     # go back to index page
-    redirect_to :action => :index
+    # redirect_to :action => :index
   end
 end

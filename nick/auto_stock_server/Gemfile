@@ -7,6 +7,9 @@ gem 'rails', '4.2.4'
 # Use nokogiti to parse html
 gem 'nokogiri'
 
+# ODM framework for mongodb
+gem 'mongoid', '~> 5.1.0'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
