@@ -4,13 +4,27 @@ class StockController < ApplicationController
 
   # default page
   def index
-    @turnovers = Turnover.all
+    
+    # default filter is all of the today's turnover 
+    opt = {
+      :start_date => DateTime.now,
+      :end_date => DateTime.now
+    }
+    @turnovers = turnover_select(opt)
   end
 
-
-
-  # create data
+  # given data filter by date or stock_number 
   def create
+    opt = {
+      # given option
+    }
+    @turnovers = turnover_select(opt)
+    render :template => "index"
+  end 
+
+  # update today's turnover in database
+  def update
+
     # parse html
     html = open("http://stock.wearn.com/qua.asp").read
     charset = Nokogiri::HTML(html).meta_encoding
@@ -58,18 +72,47 @@ class StockController < ApplicationController
       
     # save to database
     turnovers.first(50).each do |turnover|
-
       newTurnover = Turnover.new(turnover)
       newTurnover.save
-
-      # puts "wtf man"
-      # puts turnover[:stock_volumn]
     end     
 
-    
-    puts turnovers.length
+    # render api data 
+    render :nothing => true 
 
-    # go back to index page
-    # redirect_to :action => :index
   end
+
+  private
+
+  # filter turnover by given options     
+  def turnover_select(opt)
+    start_date = opt[:start_date]== nil ? DateTime.now.beginning_of_day : opt[:start_date]
+    end_date = opt[:end_date]== nil ? DateTime.now.end_of_day : opt[:end_date]
+    company = opt[:company]
+    result = []   # filter result  
+
+    # filter without stock_number
+    if (!company) 
+
+      # default is all of the company
+      result = Turnover.where(
+        :timestamps => start_date.beginning_of_day..end_date.end_of_day
+      )
+    else 
+      result = company.map do |stock_number|
+
+        # return one and the only row of daily turnover
+        Turnover.where(
+          :timestamps => start_date.beginning_of_day..end_date.end_of_day,
+          :stock_number => stock_number
+        )
+      end
+      result = result.flatten
+    end
+    
+    # prevent from returning result which contain nil not an array 
+    result = result[0] ? result : []
+
+    # return Array which caontain all the query data 
+    return result
+  end 
 end
