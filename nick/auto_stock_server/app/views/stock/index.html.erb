@@ -8,11 +8,16 @@
         watch today's daily report of stock, or pick up another day.
       </h2>
 
+      <!-- filter form -->
       <div class="columns">
+
+        <!-- input field of stock number -->
         <div class="column is-2">
-          <input class="input is-large" type="text" placeholder="Stock number">
+          <input class="input is-medium" type="text" placeholder="Stock number">
         </div>
-        <div class="column is-offset-1 is-5">
+
+        <!-- date picker  -->
+        <div class="column is-offset-1 is-3">
           <div class="tabs is-medium">
             <ul>
               <li><a>Start Date</a></li>
@@ -24,7 +29,19 @@
           </div>
         </div>
 
+        <!-- submit btn -->
+        <div class="column is-offset-1 is-1">
+          <a class="button is-light is-outlined is-medium">Search</a>
+        </div>
         <div class="column"></div>
+      </div>
+
+      <!-- tags of chosen stock number -->
+      <div class="container">
+        <span class="tag is-info is-smalll">
+          6116
+          <button class="delete is-small"></button>
+        </span>
       </div>
     </div>
   </div>
