@@ -131,6 +131,13 @@ development:
     # environment. The Mongoid logger will be set to the Rails logger
     # otherwise.(default: :info)
     # log_level: :info
+
+company: 
+  clients:
+    default:
+      database: turnovers 
+      hosts:
+        - localhost:27017
 test:
   clients:
     default:
