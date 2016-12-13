@@ -1,13 +1,11 @@
 class StockController < ApplicationController
-  require 'nokogiri'
-  require 'open-uri'
 
   # default page
   def index
     
     # default filter is all of the today's turnover 
     opt = {
-      :start_date => DateTime.now,
+      :start_date => DateTime.new(2016,1,1),
       :end_date => DateTime.now
     }
     @turnovers = turnover_select(opt)
@@ -17,9 +15,13 @@ class StockController < ApplicationController
   def create
     opt = {
       # given option
+      :start_date => DateTime.new(2016,1,1),
+      :end_date => DateTime.now,
+      :stock_number => params[:stock_number]
     }
     @turnovers = turnover_select(opt)
-    render :template => "index"
+    # # render :nothing => true
+    render :json => @turnovers.to_json
   end 
 
   # update today's turnover in database
@@ -38,8 +40,8 @@ class StockController < ApplicationController
   def turnover_select(opt)
     start_date = opt[:start_date]== nil ? DateTime.now.beginning_of_day : opt[:start_date]
     end_date = opt[:end_date]== nil ? DateTime.now.end_of_day : opt[:end_date]
-    company = opt[:company]
-    result = []   # filter result  
+    company = opt[:stock_number]
+    result = []   # filter result
 
     # filter without stock_number
     if (!company) 
@@ -59,7 +61,7 @@ class StockController < ApplicationController
       end
       result = result.flatten
     end
-    
+
     # prevent from returning result which contain nil not an array 
     result = result[0] ? result : []
 
