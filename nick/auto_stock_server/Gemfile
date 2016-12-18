@@ -49,6 +49,8 @@ group :development, :test do
   # testing framework for rails 
   gem "rspec-rails"
 
+  # continuous testing gem 'observr' 
+  gem 'observr'
 end
 
 group :development do

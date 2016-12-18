@@ -85,6 +85,7 @@ GEM
     multi_json (1.12.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    observr (1.0.5)
     origin (2.2.2)
     rack (1.6.5)
     rack-test (0.6.3)
@@ -180,6 +181,7 @@ DEPENDENCIES
   jquery-rails
   mongoid (~> 5.1.0)
   nokogiri
+  observr
   rails (= 4.2.4)
   rspec-rails
   sass-rails (~> 5.0)
