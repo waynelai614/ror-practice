@@ -141,10 +141,10 @@ company:
 test:
   clients:
     default:
-      database: auto_stock_server_test
+      database: turnovers_test
       hosts:
         - localhost:27017
       options:
         read:
           mode: :primary
-        max_pool_size: 1
+        server_selection_timeout: 5
