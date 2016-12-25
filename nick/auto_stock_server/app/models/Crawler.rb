@@ -15,10 +15,10 @@ class Crawler
 
   end 
 
-  def self.get_daily_data
+  def self.get_daily_data(count = DATA_COUNT)
      # parse html
     html = open("http://stock.wearn.com/qua.asp").read
-    charset = Nokogiri::HTML(html).meta_encoding
+    charset = "big5"
     html.force_encoding(charset)
     html.encode!("utf-8", :undef => :replace, :replace => "?", :invalid => :replace)
     doc = Nokogiri::HTML.parse html
@@ -62,7 +62,7 @@ class Crawler
     end
 
     # retrun all daily turnovers 
-    return turnovers.first(DATA_COUNT)
+    return turnovers.first(count)
   end 
 
   # the following are private class method ======================
