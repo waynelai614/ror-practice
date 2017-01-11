@@ -2,14 +2,15 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # stock data api 
-  post 'stock/data' => 'stock#update'
+  # stock data api
+  resources :stock do
 
-  # stock restful route
-  resources :stock
+    # /stock/data #POST to update db data manually.
+    post 'data', on: :collection
+  end
 
   # set home page
-  root :to => "stock#index"
+  root to: 'stock#index'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
