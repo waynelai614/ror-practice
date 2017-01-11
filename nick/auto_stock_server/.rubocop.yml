@@ -1,0 +1,16 @@
+# Metrics
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+  
+Metrics/AbcSize:
+  Enabled: false
+
+# Style
+Style/Documentation:
+  Enabled: false
