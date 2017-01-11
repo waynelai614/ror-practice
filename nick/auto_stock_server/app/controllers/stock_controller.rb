@@ -1,128 +1,139 @@
 class StockController < ApplicationController
+  # start_date :String(YYYYMMDD) - 8 bit string
+  # end_date :String(YYYYMMDD) - 8 bit string
+  # stock_number :Array
 
-  # default page
+  # /stock #GET, render page filtered by given condition
   def index
-    
-    # default filter is all of the today's turnover 
-    opt = {
-      :start_date => DateTime.now,
-      :end_date => DateTime.now
+
+    # get request parameters
+    request = {
+      start_date: params[:start_date],
+      end_date: params[:end_date],
+      stock_number: params[:stock_number]
     }
+
+    # verify request parameters
+    opt = argument_init(request)
+
+    # ask for data from db
+    # return @turnover to erb file without webServer
     @turnovers = turnover_select(opt)
   end
 
-  # given data filter by date or stock_number 
+  # /stock #POST, return json data filtered by given condition
   def create
-    opt = {
-      # given option
-      :start_date => params[:start_date],
-      :end_date => params[:end_date],
-      :stock_number => params[:stock_number]
+    # get request parameters
+    request = {
+      start_date: params[:start_date],
+      end_date: params[:end_date],
+      stock_number: params[:stock_number]
     }
 
-    # argument validation
-    opt = arguValidation(opt)
+    # verify request parameters
+    opt = argument_init(request)
 
-    # searching data
+    # ask for data from db
+    # return @turnover to erb file without webServer
     @turnovers = turnover_select(opt)
 
     # retrun json object
-    render :json => @turnovers.to_json
-  end 
+    render json: @turnovers.to_json
+  end
 
-  # update today's turnover in database
-  def update
+  # /stock/data #POST, update today's turnover in database manually
+  def data
 
     # update db manually
-    Crawler.crawl_data_to_db()
-    
+    Crawler.crawl_data_to_db
+
     # return json
-    render :json => Crawler.get_daily_data()
+    render json: Crawler.get_daily_data
   end
 
   private
 
-  # argument validation
-  def arguValidation(opt)
+  # is data format doesn't match expected,
+  # raise Exception and return deafult value
+  def argument_init(opt)
+    payload = {}
+    payload[:start_date] = start_date_verify(opt[:start_date])
+    payload[:end_date] = end_date_verify(opt[:end_date])
+    payload[:stock_number] = stock_number_verify(opt[:stock_number])
+    payload
+  end
 
-    # start_date
-    # if isn't DateTime or String type, return now
-    begin
-      unless (opt[:start_date].instance_of? String) || (opt[:start_date].instance_of? DateTime)
-        raise ArgumentError
-      end 
-    rescue ArgumentError
-       opt[:start_date] = nil
-    end 
+  # return ISODate Obj
+  def start_date_verify(date)
+    raise ArgumentError if date.nil?
 
-    # end_date
-    # if isn't DateTime or String type, return now
-    begin
-      unless (opt[:end_date].instance_of? String) || (opt[:end_date].instance_of? DateTime)
-        raise ArgumentError
-      end 
-    rescue ArgumentError
-       opt[:end_date] = nil
-    end 
+    year = date.slice(0, 4).to_i  # year is 4-bit string
+    month = date.slice(4, 2).to_i # month is 4-bit string
+    day = date.slice(6, 2).to_i # date is 4-bit string
 
-    # # stock numner
-    # # if isn't Array type, return nil
-    begin
-      unless opt[:stock_number].instance_of? Array
-        raise ArgumentError
-        
-      end 
-    rescue ArgumentError
-       opt[:stock_number] = nil
-    end 
+    DateTime.new(year, month, day)
+  rescue
 
-    
+    # date format doesn't match
+    puts 'start_time format is unexcepted'
+    DateTime.now.beginning_of_day
+  end
 
-    return opt
-  end 
+  def end_date_verify(date)
+    raise ArgumentError if date.nil?
 
-  # filter turnover by given options     
-  def turnover_select(opt)
-    start_date = opt[:start_date] ? opt[:start_date] : DateTime.now.beginning_of_day
-    end_date = opt[:end_date] ? opt[:end_date] : DateTime.now.end_of_day
-    company = opt[:stock_number]
+    year = date.slice(0, 4).to_i  # year is 4-bit integer
+    month = date.slice(4, 2).to_i # month is 2-bit integer
+    day = date.slice(6, 2).to_i # date is 2-bit integer
 
-    # if date are string type
-    if start_date.instance_of? String
-      start_date = DateTime.parse(start_date)
-    end 
+    DateTime.new(year, month, day)
+  rescue
 
-    if end_date.instance_of? String 
-       end_date = DateTime.parse(end_date)
-    end
-    
-   
+    # date format doesn't match
+    puts 'end_time format is unexcepted'
+    DateTime.now.end_of_day
+  end
 
-    result = []   # filter result
+  def stock_number_verify(stock_number)
+    raise ArgumentError if stock_number.nil?
 
-    # filter without stock_number
-    if (!company) 
-
-      # default is all of the company
-      result = Turnover.where(
-        :timestamps => start_date.beginning_of_day..end_date.end_of_day
-      )
-    else 
-      result = company.map do |stock_number|
-
-        # return one and the only row of daily turnover
-        Turnover.where(
-          :timestamps => start_date.beginning_of_day..end_date.end_of_day,
-          :stock_number => stock_number
-        )
+    # if stock numner cannot transfer to Array type, return an empty Array
+    stock_number
+      .to_s
+      .strip
+      .tr('[]', '')
+      .split(',')
+      .map do |s|
+        s.to_i unless s.to_i.zero?
       end
-      result = result.flatten
-    end
+      .compact
+  rescue ArgumentError
+    # return a empty Array
+    puts 'stock_number format is unexcepted'
+    return []
+  end
 
-    # prevent from returning result which contain nil not an array 
-    result = result[0] ? result : []
-
-    # return Array which caontain all the query data 
-    return result
-  end 
+  # filter turnover by given options
+  def turnover_select(opt)
+    start_date, end_date, company = opt.values_at(:start_date, :end_date, :stock_number)
+    # filter without stock_number
+    result =
+      if company.empty?
+        # default is all of the company
+        Turnover.where(
+          timestamps: start_date.beginning_of_day..end_date.end_of_day
+        )
+      else
+        company.flat_map do |stock_number|
+          # return one and the only row of daily turnover
+          result = Turnover.where(
+            timestamps: start_date.beginning_of_day..end_date.end_of_day,
+            stock_number: stock_number
+          )
+        end
+      end
+    # return Array which caontain all the query data
+    # if query nothing, return an empty array
+    result = result.empty? ? [] : result
+  end
 end
