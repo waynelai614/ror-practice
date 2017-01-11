@@ -5,37 +5,15 @@ class StockController < ApplicationController
 
   # /stock #GET, render page filtered by given condition
   def index
-
-    # get request parameters
-    request = {
-      start_date: params[:start_date],
-      end_date: params[:end_date],
-      stock_number: params[:stock_number]
-    }
-
-    # verify request parameters
-    opt = argument_init(request)
-
-    # ask for data from db
-    # return @turnover to erb file without webServer
-    @turnovers = turnover_select(opt)
+    # @turnovers are the result of querying
+    # return erb without web server
+    @turnovers = launch
   end
 
   # /stock #POST, return json data filtered by given condition
   def create
-    # get request parameters
-    request = {
-      start_date: params[:start_date],
-      end_date: params[:end_date],
-      stock_number: params[:stock_number]
-    }
-
-    # verify request parameters
-    opt = argument_init(request)
-
-    # ask for data from db
-    # return @turnover to erb file without webServer
-    @turnovers = turnover_select(opt)
+    # @turnovers are the result of querying
+    @turnovers = launch
 
     # retrun json object
     render json: @turnovers.to_json
@@ -43,12 +21,28 @@ class StockController < ApplicationController
 
   # /stock/data #POST, update today's turnover in database manually
   def data
-
     # update db manually
     Crawler.crawl_data_to_db
 
     # return json
     render json: Crawler.get_daily_data
+  end
+
+  # given condition and query data
+  # return result of querying
+  def launch
+    # get request parameters
+    request = {
+      start_date: params[:start_date],
+      end_date: params[:end_date],
+      stock_number: params[:stock_number]
+    }
+
+    # verify request parameters
+    opt = argument_init(request)
+
+    # retrun selecting data from DB
+    turnover_select(opt)
   end
 
   private
