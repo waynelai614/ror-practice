@@ -59,9 +59,6 @@ group :development, :test do
   # continuous testing gem 'observr'
   gem 'observr'
 
-  # create random value with 'faker'
-  gem 'faker', '~> 1.6.1'
-
   # Using 'factory_girl_rails' for setting up Ruby objects as test data
   gem "factory_girl_rails", "~> 4.0"
 
