@@ -6,6 +6,10 @@
 : Cron jobs in Ruby
 * [nokogiri](https://github.com/sparklemotion/nokogiri)
 : HTML, XML, SAX, and Reader parser
+* [rubocop](https://github.com/bbatsov/rubocop)
+: A Ruby static code analyzer
+* [factory_girl](https://github.com/thoughtbot/factory_girl)
+: A library for setting up Ruby objects as test data.
 
 ## How to use
 
@@ -51,7 +55,7 @@ $ observr observr.rb
 - [x] auto-select stock info ( no more sending request manually )
 - [x] nosql database like mongodb
 - [ ] test
-- [ ] rcov for test coverage
+- [ ] coverage using SimpleCov
 - [ ] date-picker
 - [ ] view by react/redux
 - [ ] seperate view by Web server
