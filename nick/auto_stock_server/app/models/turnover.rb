@@ -3,6 +3,10 @@ class Turnover
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  # should not be empty
+  validates_presence_of :stock_number
+  validates_presence_of :stock_name
+
   # schema
   field :stock_number, type: Integer
   field :stock_name, type: String
