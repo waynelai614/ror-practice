@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Turnover, type: :model do
   context 'when normal query data' do
-    subject { create(:turnover) }
+    subject { build(:turnover) }
     it { is_expected.to be_valid }
 
     it "should include Mongoid::Timestamps::'Created' and 'Updated'" do
