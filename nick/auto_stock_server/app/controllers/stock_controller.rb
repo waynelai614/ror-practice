@@ -45,9 +45,7 @@ class StockController < ApplicationController
     turnover_select(opt)
   end
 
-  private
-
-  # is data format doesn't match expected,
+  # data format doesn't match expected,
   # raise Exception and return deafult value
   def argument_init(opt)
     payload = {}
@@ -57,6 +55,8 @@ class StockController < ApplicationController
     payload
   end
 
+  private
+
   # return ISODate Obj
   def start_date_verify(date)
     raise ArgumentError if date.nil?
@@ -65,12 +65,12 @@ class StockController < ApplicationController
     month = date.slice(4, 2).to_i # month is 4-bit string
     day = date.slice(6, 2).to_i # date is 4-bit string
 
-    DateTime.new(year, month, day)
+    Time.new(year, month, day)
   rescue
 
     # date format doesn't match
     puts 'start_time format is unexcepted'
-    DateTime.now.beginning_of_day
+    Time.now.beginning_of_day
   end
 
   def end_date_verify(date)
@@ -80,12 +80,12 @@ class StockController < ApplicationController
     month = date.slice(4, 2).to_i # month is 2-bit integer
     day = date.slice(6, 2).to_i # date is 2-bit integer
 
-    DateTime.new(year, month, day)
+    Time.new(year, month, day)
   rescue
 
     # date format doesn't match
     puts 'end_time format is unexcepted'
-    DateTime.now.end_of_day
+    Time.now.end_of_day
   end
 
   def stock_number_verify(stock_number)

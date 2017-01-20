@@ -72,7 +72,7 @@ class Crawler
   def self.delete_repeat
     Turnover
       .where(
-        timestamps: DateTime.now.beginning_of_day..DateTime.now.end_of_day
+        timestamps: Time.now.beginning_of_day..Time.now.end_of_day
       )
       .delete
   end

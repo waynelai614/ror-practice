@@ -1,12 +1,12 @@
 require 'rails_helper'
-require 'Crawler.rb'
+require 'crawler.rb'
 
 describe Crawler do 
   describe ".crawl_data_to_db" do 
     subject(:turnovers) do 
       Crawler.crawl_data_to_db
       Turnover.where(
-        :timestamps => DateTime.now.beginning_of_day..DateTime.now.end_of_day
+        :timestamps => Time.now.beginning_of_day..Time.now.end_of_day
       )
     end 
     
