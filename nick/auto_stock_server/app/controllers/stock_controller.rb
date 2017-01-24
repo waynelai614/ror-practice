@@ -69,7 +69,6 @@ class StockController < ApplicationController
   rescue
 
     # date format doesn't match
-    puts 'start_time format is unexcepted'
     Time.now.beginning_of_day
   end
 
@@ -84,7 +83,6 @@ class StockController < ApplicationController
   rescue
 
     # date format doesn't match
-    puts 'end_time format is unexcepted'
     Time.now.end_of_day
   end
 
@@ -103,7 +101,6 @@ class StockController < ApplicationController
       .compact
   rescue ArgumentError
     # return a empty Array
-    puts 'stock_number format is unexcepted'
     return []
   end
 
