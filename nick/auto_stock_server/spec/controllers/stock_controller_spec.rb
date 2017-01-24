@@ -75,10 +75,26 @@ RSpec.describe StockController, type: :controller do
       end
     end
 
-    context "when 'stock_number' under expection" do
+    context "when 'stock_number' is reasonable" do
+      subject do
+        controller
+          .argument_init(attributes_for(:requestOpt))
+          .fetch(:stock_number)
+      end
+      it { is_expected.to be_instance_of(Array) }
+      context 'the elements' do
+        it { expect(subject.first).to be_kind_of(Integer) }
+      end
     end
 
     context "when 'stock_number' is unexpected" do
+      subject do
+        controller
+          .argument_init(attributes_for(:stock_number_unexpected))
+          .fetch(:stock_number)
+      end
+      it { is_expected.to be_instance_of(Array) }
+      it { is_expected.to be_empty }
     end
   end
 
@@ -87,31 +103,75 @@ RSpec.describe StockController, type: :controller do
   # 2. return query result
   describe '.launch' do
     context 'without query conditions' do
-    
-    end
-
-    context 'with query condition' do
-      
-      context "when 'start_date' is unexpected" do
-  
+      before(:each) do
+        allow(controller).to receive(:turnover_select)
+          .and_return(build_list(:turnover, Crawler::DATA_COUNT))
       end
-
-
+      context 'return' do
+        it { expect(controller.launch).to be_instance_of(Array) }
+      end
+      context 'elements of what we return' do
+        it { expect(controller.launch.first).to be_instance_of(Turnover) }
+      end
     end
 
     describe 'when query database' do
-      context 'with company' do
-     
+      before(:each) do
+        # options that simulate to pass by user
+        opt = controller.argument_init(attributes_for(:requestOpt))
+        @passing_date = ((opt.fetch(:end_date).end_of_day - opt.fetch(:start_date).beginning_of_day) / 1.day).ceil
+        # mock the query in Database
+        # return today's turnover without opts by default
+        double(Turnover)
+        allow(Turnover).to receive(:where)
+          .and_return(build_list(:turnover, Crawler::DATA_COUNT))
 
+        # query without number
+        query_without_number = attributes_for(:query_without_number)
+        allow(Turnover).to receive(:where)
+          .with(query_without_number)
+          .and_return(build_list(:turnover, @passing_date * Crawler::DATA_COUNT))
 
+        # query with number and dates
+        query_with_number_date = attributes_for(:query_with_number_date)
+        allow(Turnover).to receive(:where)
+          .with(query_with_number_date)
+          .and_return(build_list(:turnover, @passing_date, stock_number: query_with_number_date.fetch(:stock_number)))
+      end
+
+      context 'with nothing' do
+        before(:each) do
+          # return today's turnover without opts by default
+          controller.params = attributes_for(:empty)
+        end
+        subject { controller.launch }
+        context 'should select today\'s turnover' do
+          its(:size) { is_expected.to eq Crawler::DATA_COUNT }
+        end
       end
 
       context 'without company' do
+        before(:each) do
+          controller.params = attributes_for(:stock_number_empty)
+        end
+        subject { controller.launch }
+        context 'should select all turnovers between dates' do
+          its(:size) { is_expected.to eq Crawler::DATA_COUNT * @passing_date }
+        end
       end
 
-
-      context 'fail' do
-
+      context 'with both date and company' do
+        before(:each) do
+          controller.params = attributes_for(:requestOpt)
+        end
+        subject { controller.launch }
+        context 'should select the turnovers of companys between dates' do
+          it { expect(attributes_for(:requestOpt).fetch(:stock_number)).to include subject.first.stock_number }
+          its(:size) do
+            company_length = attributes_for(:requestOpt).fetch(:stock_number).size
+            is_expected.to eq @passing_date * company_length 
+          end
+        end
       end
 
     end
