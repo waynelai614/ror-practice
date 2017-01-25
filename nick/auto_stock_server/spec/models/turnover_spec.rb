@@ -26,12 +26,14 @@ RSpec.describe Turnover, type: :model do
   end
 
   context 'if data format is unexpected' do
-    subject { build(:turnover_unexpected) }
 
     context 'when stock_number is empty ' do
+      subject { build(:turnover_without_number) }
       it { is_expected.not_to be_valid }
+
     end
     context 'when stock_name is empty ' do
+      subject { build(:turnover_without_name) }
       it { is_expected.not_to be_valid }
     end
 

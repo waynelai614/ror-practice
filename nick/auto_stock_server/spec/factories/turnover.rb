@@ -13,9 +13,12 @@ FactoryGirl.define do
     stock_quote_change "2.71%  "
     timestamps { Time.now }
 
-    factory :turnover_unexpected do
+    factory :turnover_without_number do
       stock_number nil
-      stock_name nil
     end
+
+    factory :turnover_without_name do
+      stock_name nil
+    end 
   end
 end
