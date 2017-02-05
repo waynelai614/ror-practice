@@ -1,5 +1,6 @@
-## Overview
-> parse stock turnover from [here](http://stock.wearn.com/qua.asp)
+# Overview
+
+>  auto turnover service that parsing from [here](http://stock.wearn.com/qua.asp)
 
 
 * [whenever](https://github.com/javan/whenever)
@@ -11,11 +12,12 @@
 * [factory_girl](https://github.com/thoughtbot/factory_girl)
 : A library for setting up Ruby objects as test data.
 
-## How to use
+# Enviroment
 
-First, u have to install Rails
+* rails 4.2.4
+* ruby 2.3.0p0
 
-#### start server
+# Getting started
 
 ``` shell
 git checkout dev/nick
@@ -24,37 +26,34 @@ bundle install
 rails s
 ```
 
-#### Listening ports
-localhost:3000
+## Listening ports
+> localhost:3000
 
-## Testing
-Using
+
+# Testing
+> Using
 [RSpec](https://github.com/rspec/rspec-rails)
 as the test framework, and   [observr](https://github.com/kevinburke/observr)
 to run the test automatically whenever an observed file is modified.
-Besides, clean the database between each unit test and test suite with
-[database_cleaner](https://github.com/DatabaseCleaner/database_cleaner).
 
-#### Usage
-
-###### Format RSpec output
+## Format RSpec output
 
 
 ```shell
 $ bundle exec rspec -fd
 ```
 
-###### Continuous testing
+## Continuous testing
 ```shell
 $ observr observr.rb
 ```
 
-## Todo lists
+# Todo lists
 
 - [x] restful route design
 - [x] auto-select stock info ( no more sending request manually )
 - [x] nosql database like mongodb
-- [ ] test
+- [x] test
 - [ ] coverage using SimpleCov
 - [ ] date-picker
 - [ ] view by react/redux
