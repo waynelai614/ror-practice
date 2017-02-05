@@ -2,12 +2,17 @@ require 'rails_helper'
 require 'crawler.rb'
 
 describe Crawler do
-  # 1. delete today data in DB
-  # 2. update data in DB
+  # data which was crawled from website could be saved to database
   describe '.crawl_data_to_db' do
-    # stub delete_repeat
-    # stub get_daily_data
-    # stub Turnover.save => be_valid return true
+    before(:each) do
+      html = attributes_for(:crawler).fetch(:html)
+      allow(Crawler).to receive(:html_parse)
+        .and_return(Nokogiri::HTML.parse(html))
+    end
+    subject { Turnover.new(Crawler.get_daily_data.first) }
+    context 'when crawled data save to database ' do
+      it { is_expected.to be_valid }
+    end
   end
 
   # got different Nokogiri::HTML when given specific html file
@@ -92,4 +97,3 @@ describe Crawler do
     end
   end
 end
-
