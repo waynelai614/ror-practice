@@ -1,9 +1,15 @@
 language: ruby
+
+cache:
+  bundler: true
+
 rvm:
  - 2.3.0
 
 branches:
   only:
   - dev/nick
+before_install:
+  - cd ./nick/auto_stock_server/
 
 script: bundle exec rspec spec
