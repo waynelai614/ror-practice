@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rakuten-f2e/ror-practice.svg?branch=dev/nick)](https://travis-ci.org/rakuten-f2e/ror-practice)
+
 # Overview
 
 >  auto turnover service that parsing from [here](http://stock.wearn.com/qua.asp)
