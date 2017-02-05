@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+ - 2.3.0
+
+branches:
+  only:
+  - dev/nick
+
+script: bundle exec rspec spec
