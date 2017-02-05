@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'crawler'
+require 'Crawler.rb'
 
 RSpec.describe StockController, type: :controller do
 

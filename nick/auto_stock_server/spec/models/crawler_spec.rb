@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'crawler.rb'
+require 'Crawler.rb'
 
 describe Crawler do
   # data which was crawled from website could be saved to database
