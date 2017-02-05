@@ -16,11 +16,7 @@ class Crawler
 
   def self.get_daily_data(count = DATA_COUNT)
     # parse html
-    html = open('http://stock.wearn.com/qua.asp').read
-    charset = 'big5'
-    html.force_encoding(charset)
-    html.encode!('utf-8', undef: :replace, replace: '?', invalid: :replace)
-    doc = Nokogiri::HTML.parse html
+    doc = html_parse
 
     # parse node
     node = doc.css('.stockalllistbg1, .stockalllistbg2')
@@ -68,6 +64,16 @@ class Crawler
   end
 
   # the following are private class method
+  # html parse
+  def self.html_parse
+    html = open('http://stock.wearn.com/qua.asp').read
+    puts html.class
+    charset = 'big5'
+    html.force_encoding(charset)
+    html.encode!('utf-8', undef: :replace, replace: '?', invalid: :replace)
+    Nokogiri::HTML.parse html
+  end
+
   # delete repeated data in DB
   def self.delete_repeat
     Turnover
@@ -91,6 +97,5 @@ class Crawler
           .save
       end
   end
-
-  private_class_method :delete_repeat, :update_daily_data
+  private_class_method :delete_repeat, :update_daily_data, :html_parse
 end
