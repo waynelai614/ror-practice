@@ -47,14 +47,13 @@ group :development, :test do
   gem 'byebug'
 
   # testing framework for rails
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.5'
+
+  # RSpec::Its provides the its method as a short-hand to specify the expected value of an attribute.
   gem 'rspec-its'
-  
+
   # RSpec matchers and macros for Mongoid
   gem 'mongoid-rspec', '3.0.0'
-
-  # With database_cleaner, it cleans the database between each unit test and test suite.
-  gem "database_cleaner"
 
   # continuous testing gem 'observr'
   gem 'observr'
