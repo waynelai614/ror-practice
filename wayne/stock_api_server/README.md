@@ -11,14 +11,20 @@ Before starting, you'll need to have those below.
 
 ### Clone the project
 ```
-$ git clone git@github.com:waynelai614/ror-practice.git \
-$ cd wayne/stock_api_server
+$ git clone -b dev/wayne git@github.com:waynelai614/ror-practice.git \
+$ cd ror-practice/wayne/stock_api_server
 ```
 ### Run
 Boot the app with
 `$ docker-compose up`
 
-after see some PostgreSQL output, you need to create the database in another terminal.
+after see some PostgreSQL output:
+```
+web_1  | [2017-02-23 10:22:47] INFO  WEBrick 1.3.1
+web_1  | [2017-02-23 10:22:47] INFO  ruby 2.1.5 (2014-11-13) [x86_64-linux]
+web_1  | [2017-02-23 10:22:47] INFO  WEBrick::HTTPServer#start: pid=1 port=3000
+```
+and then you need to create the database in another terminal.
 Run: `$ docker-compose run web rake db:create`
 
 Visit: [http://0.0.0.0:3000](http://0.0.0.0:3000)
