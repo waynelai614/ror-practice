@@ -1,0 +1,9 @@
+inherit_from: .rubocop_todo.yml
+
+# disable Missing top-level class documentation comment.
+Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 15
