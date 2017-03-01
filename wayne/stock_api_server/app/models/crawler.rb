@@ -7,7 +7,7 @@ class Crawler
   PRICE_UP_COLOR = '#ec008c'.freeze
   PRICE_DOWN_COLOR = '#009900'.freeze
 
-  def self.crawl_daily_data
+  def self.crawl
     doc = html_parse
     node = doc.css('div.stockalllist > table tr[class^="stockalllistbg"]')
 
@@ -39,15 +39,15 @@ class Crawler
 
   def self.get_stock_obj(node, href, change)
     {
-      stock_number: node[1].content.strip,
+      stock_code: node[1].content.strip,
       stock_name: node[2].content.strip,
-      stock_company_url: href.strip,
+      stock_company_uri: href.strip,
       stock_opening_price: node[3].content.strip.to_f,
       stock_highest_price: node[4].content.strip.to_f,
-      stock_floor_price: node[5].content.strip.to_f,
+      stock_lowest_price: node[5].content.strip.to_f,
       stock_closing_yesterday: node[6].content.strip.to_f,
       stock_closing_today: node[7].content.strip.to_f,
-      stock_volumn: node[8].content.strip.tr(',', '').to_i,
+      stock_volume: node[8].content.strip.tr(',', '').to_i,
       stock_change: change,
       stock_quote_change: node[10].content.partition('%').first.to_f
     }
