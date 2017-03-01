@@ -1,4 +1,6 @@
 StockApiServer::Application.routes.draw do
+  resources :stock
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
