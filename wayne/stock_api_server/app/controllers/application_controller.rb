@@ -1,3 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  # used in API-style controllers
+  protect_from_forgery with: :null_session
 end
