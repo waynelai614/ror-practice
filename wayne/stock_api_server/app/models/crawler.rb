@@ -7,6 +7,11 @@ class Crawler
   PRICE_UP_COLOR = '#ec008c'.freeze
   PRICE_DOWN_COLOR = '#009900'.freeze
 
+  def self.crawl_data_to_db
+    delete_old_data
+    update_data
+  end
+
   def self.crawl
     doc = html_parse
     node = doc.css('div.stockalllist > table tr[class^="stockalllistbg"]')
@@ -25,7 +30,7 @@ class Crawler
         end
       get_stock_obj(stock, href, change)
     end
-    puts turnovers.first(DATA_COUNT)
+    turnovers.first(DATA_COUNT)
   end
 
   # Fetch and parse HTML document
@@ -61,5 +66,22 @@ class Crawler
       -number
     end
   end
-  private_class_method :html_parse, :get_stock_obj, :get_change_by_color
+
+  def self.update_data
+    turnovers = crawl
+    # save to db
+    turnovers.each do |turnover|
+      Turnover
+        .create(turnover)
+        .save
+    end
+  end
+
+  # delete old data in DB
+  def self.delete_old_data
+    Turnover
+      .where(created_at: Time.now.beginning_of_day..Time.now.end_of_day)
+      .destroy_all
+  end
+  private_class_method :html_parse, :get_stock_obj, :get_change_by_color, :delete_old_data, :update_data
 end
