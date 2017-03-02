@@ -38,3 +38,5 @@ gem 'jquery-rails'
 
 # linter
 gem 'rubocop', require: false
+
+gem 'nokogiri'

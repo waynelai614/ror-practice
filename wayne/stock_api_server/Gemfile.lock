@@ -51,7 +51,10 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile2 (2.1.0)
     multi_json (1.12.1)
+    nokogiri (1.7.0.1)
+      mini_portile2 (~> 2.1.0)
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.19.0)
@@ -116,6 +119,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
+  nokogiri
   pg
   rails (= 3.2.22.1)
   rubocop
