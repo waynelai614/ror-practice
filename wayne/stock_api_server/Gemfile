@@ -39,4 +39,10 @@ gem 'jquery-rails'
 # linter
 gem 'rubocop', require: false
 
+# Use nokogiri to parse HTML document
 gem 'nokogiri'
+
+group :development, :test do
+  # testing framework for Rails
+  gem 'rspec-rails'
+end
