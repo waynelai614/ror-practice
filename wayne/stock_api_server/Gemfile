@@ -42,6 +42,9 @@ gem 'rubocop', require: false
 # Use nokogiri to parse HTML document
 gem 'nokogiri'
 
+# Cron jobs in Ruby
+gem 'whenever', require: false
+
 group :development, :test do
   # testing framework for Rails
   gem 'rspec-rails'
