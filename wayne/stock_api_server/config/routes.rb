@@ -1,5 +1,13 @@
 StockApiServer::Application.routes.draw do
-  resources :stock
+  scope '/api' do
+    resources :stock do
+      # /api/stock/crawl #POST update today's turnovers
+      post 'crawl', on: :collection
+    end
+  end
+
+  # home root
+  root to: 'stock#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
