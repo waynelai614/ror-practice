@@ -1,4 +1,7 @@
 class Turnover < ActiveRecord::Base
+  validates_format_of :stock_code, with: /[0-9]{4}/
+  validates_presence_of :stock_name
+
   attr_accessible *%i[
     stock_code
     stock_name
