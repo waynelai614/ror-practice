@@ -29,7 +29,10 @@ Run: `$ docker-compose run web rake db:create db:migrate`
 
 Visit: [http://0.0.0.0:3000](http://0.0.0.0:3000)
 
-> Note: If you stop the example application and attempt to restart it, you might get the following error:
-> web_1 | A server is already running. Check [PROJECT]/tmp/pids/server.pid.
-> One way to resolve this is to delete the file **tmp/pids/server.pid**, and then re-start the
-> application with `$ docker-compose up`.
+### Start Cron job
+Boot the app with
+```
+$ cd ror-practice/wayne/stock_api_server
+$ whenever --update-crontab
+```
+You can list installed cron jobs using `$ crontab -l`
