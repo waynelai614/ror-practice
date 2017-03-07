@@ -1,6 +1,30 @@
 wb = xlsx_package.workbook
+
+# define styles
+header = wb.styles.add_style(bg_color: 'EDC376', sz: 13, b: true, alignment: { horizontal: :center }, border: Axlsx::STYLE_THIN_BORDER)
+center_content = wb.styles.add_style(alignment: { horizontal: :center }, border: Axlsx::STYLE_THIN_BORDER)
+price = wb.styles.add_style(format_code: '0.00', border: Axlsx::STYLE_THIN_BORDER)
+volume = wb.styles.add_style(format_code: '[Blue]#,##0', border: Axlsx::STYLE_THIN_BORDER)
+change = wb.styles.add_style(format_code: '[Red]+ #,##0.00_;[Green]- #,##0.00;0;', border: Axlsx::STYLE_THIN_BORDER)
+percent = wb.styles.add_style(format_code: '0.00%', border: Axlsx::STYLE_THIN_BORDER)
+date_time = wb.styles.add_style(num_fmt: Axlsx::NUM_FMT_YYYYMMDDHHMMSS, border: Axlsx::STYLE_THIN_BORDER)
+
 wb.add_worksheet(name: 'Turnovers') do |sheet|
-  @turnovers.each do |turnover|
-    sheet.add_row [turnover.stock_code, turnover.stock_name]
+  sheet.add_row %w(代號 名稱 開盤價 最高價 最低價 昨收盤 今收盤 成交量 漲跌 漲跌幅 更新日期), style: header
+  @turnovers.each do |t|
+    sheet.add_row do |row|
+      row.add_cell(t.stock_code, style: center_content)
+      row.add_cell(t.stock_name, style: center_content)
+      row.add_cell(t.stock_opening_price, style: price)
+      row.add_cell(t.stock_highest_price, style: price)
+      row.add_cell(t.stock_lowest_price, style: price)
+      row.add_cell(t.stock_closing_yesterday, style: price)
+      row.add_cell(t.stock_closing_today, style: price)
+      row.add_cell(t.stock_volume, style: volume)
+      row.add_cell(t.stock_change, style: change)
+      row.add_cell(t.stock_quote_change / 100, style: percent)
+      # axlsx timezone issue, time + time.utc_offset
+      row.add_cell(t.updated_at + t.updated_at.utc_offset, style: date_time)
+    end
   end
 end
