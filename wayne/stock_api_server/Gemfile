@@ -45,6 +45,9 @@ gem 'nokogiri'
 # Cron jobs in Ruby
 gem 'whenever', require: false
 
+# Spreadsheet templates for Rails
+gem 'axlsx_rails'
+
 group :development, :test do
   # testing framework for Rails
   gem 'rspec-rails'

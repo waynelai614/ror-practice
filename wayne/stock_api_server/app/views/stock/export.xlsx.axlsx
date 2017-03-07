@@ -1,0 +1,6 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Turnovers') do |sheet|
+  @turnovers.each do |turnover|
+    sheet.add_row [turnover.stock_code, turnover.stock_name]
+  end
+end

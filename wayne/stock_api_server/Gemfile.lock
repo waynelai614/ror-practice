@@ -30,6 +30,13 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.3)
     ast (2.3.0)
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
+    axlsx_rails (0.5.0)
+      actionpack (>= 3.1)
+      axlsx (>= 2.0.1)
     builder (3.0.4)
     chronic (0.10.2)
     coffee-rails (3.2.2)
@@ -48,6 +55,7 @@ GEM
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
     hike (1.2.3)
+    htmlentities (4.3.4)
     i18n (0.8.1)
     journey (1.0.4)
     jquery-rails (3.1.4)
@@ -117,6 +125,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
+    rubyzip (1.0.0)
     sass (3.4.23)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -143,6 +152,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  axlsx_rails
   coffee-rails (~> 3.2.1)
   factory_girl_rails (~> 4.0)
   jquery-rails
