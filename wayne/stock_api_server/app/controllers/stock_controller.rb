@@ -17,7 +17,7 @@ class StockController < ApplicationController
     @turnovers = Turnover.order(sort_column + ' ' + sort_direction)
     respond_to do |format|
       format.json { render json: @turnovers }
-      format.xlsx { render xlsx: 'export', filename: 'turnovers.xlsx' }
+      format.xlsx { response.headers['Content-Disposition'] = 'attachment; filename="turnovers.xlsx"' }
     end
   end
 
