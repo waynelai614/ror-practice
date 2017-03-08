@@ -1,0 +1,16 @@
+development: &default
+  adapter: postgresql
+  encoding: unicode
+  database: stock_api_server_development
+  pool: 5
+  username: postgres
+  password:
+
+test:
+  <<: *default
+  database: stock_api_server_test
+
+
+production:
+  <<: *default
+  database: stock_api_server_production
