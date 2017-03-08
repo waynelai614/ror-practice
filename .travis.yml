@@ -13,7 +13,7 @@ branches:
     - dev/wayne
 
 before_install:
-  - cd ./wayne/auto_stock_server/
+  - cd ./wayne/stock_api_server/
 
 before_script:
   - psql -c 'create database stock_api_server_test;' -U postgres    
