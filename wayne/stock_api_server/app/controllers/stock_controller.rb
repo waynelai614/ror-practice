@@ -1,12 +1,20 @@
 # Stock controller
 class StockController < ApplicationController
-  # /stock #GET, return all datas
+  # #GET, get the turnovers by codes and date condition
+  # /stock, return today's turnovers
+  # /stock?codes=1314,2023, query multi codes with comma-separated string
+  # /stock?date=yyyyMMdd, query by date string format
+  # /stock?codes=1314,2023&date=yyyyMMdd, query by codes and date
   def index
     @turnovers =
-      if params[:code] && params[:date]
-        Turnover.find_by_code_and_date(params[:code], validate_date(params[:date]))
-      elsif params[:code]
-        Turnover.find_by_code(params[:code])
+      if params[:codes] && params[:date]
+        Turnover
+          .find_by_code_and_date(
+            split_str_by_comma(params[:codes]),
+            validate_date(params[:date])
+          )
+      elsif params[:codes]
+        Turnover.find_by_code(split_str_by_comma(params[:codes]))
       elsif params[:date]
         Turnover.find_by_date(validate_date(params[:date]))
       else
@@ -32,6 +40,11 @@ class StockController < ApplicationController
   end
 
   private
+
+  # split and remove whitespace
+  def split_str_by_comma(str)
+    str.split(',').map(&:strip)
+  end
 
   def validate_date(date)
     date.to_time

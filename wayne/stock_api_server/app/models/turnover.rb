@@ -16,17 +16,17 @@ class Turnover < ActiveRecord::Base
     stock_quote_change
   ]
 
-  def self.find_by_code(code)
-    Turnover.where(stock_code: code)
+  def self.find_by_code(codes)
+    Turnover.where(stock_code: [codes])
   end
 
   def self.find_by_date(date)
     Turnover.where(created_at: date.beginning_of_day..date.end_of_day)
   end
 
-  def self.find_by_code_and_date(code, date)
+  def self.find_by_code_and_date(codes, date)
     Turnover
-      .where(stock_code: code)
+      .where(stock_code: [codes])
       .where(created_at: date.beginning_of_day..date.end_of_day)
   end
 
