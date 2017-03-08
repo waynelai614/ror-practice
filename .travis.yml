@@ -1,0 +1,30 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.11.2
+
+branches:
+  only:
+    - dev/wayne
+
+before_install:
+  # install docker-compose at specific version
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  # go into project folder
+  - cd ./wayne/stock_api_server/
+
+script:
+  - docker version
+  - docker-compose version
+  - docker-compose build
+  - docker-compose up
+  - docker-compose run web rake db:test:prepare
+  - docker-compose run web bundle exec rspec spec
