@@ -18,13 +18,18 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  # go into project folder
-  - cd ./wayne/stock_api_server/
-
-script:
+  # show version
   - docker version
   - docker-compose version
+  # go into project folder
+
+before_script:
+  # go into project folder
+  - cd ./wayne/stock_api_server/
   - docker-compose build
   - docker-compose up -d
+
+script:
+  - docker ps
   - docker-compose run web rake db:create db:migrate RAILS_ENV=test
   - docker-compose run web bundle exec rspec spec
