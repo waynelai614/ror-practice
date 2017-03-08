@@ -1,4 +1,5 @@
 # Stock API Server
+[![Build Status](https://travis-ci.org/waynelai614/ror-practice.svg?branch=dev/wayne)](https://travis-ci.org/waynelai614/ror-practice)
 
 ### Requirements
 Before starting, you'll need to have those below.
