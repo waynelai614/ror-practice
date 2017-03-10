@@ -29,12 +29,4 @@ class Turnover < ActiveRecord::Base
       .where(stock_code: [codes])
       .where(created_at: date.beginning_of_day..date.end_of_day)
   end
-
-  def self.sort_by(column, direction)
-    # return the exist column name, default: 'created_at'
-    sort_column = Turnover.column_names.include?(column) ? column : 'created_at'
-    # return the sort direction, default: 'asc'
-    sort_direction = %w(asc desc).include?(direction) ? direction : 'asc'
-    Turnover.order(sort_column + ' ' + sort_direction)
-  end
 end

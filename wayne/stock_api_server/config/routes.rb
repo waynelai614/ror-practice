@@ -1,10 +1,8 @@
 StockApiServer::Application.routes.draw do
   scope '/api' do
-    resources :stock do
+    resources :stock, only: [:index] do
       # /api/stock/crawl #POST update today's turnovers
       post 'crawl', on: :collection
-      # /api/stock/export.json or /api/stock/export.xlsx
-      get 'export', on: :collection
     end
   end
 

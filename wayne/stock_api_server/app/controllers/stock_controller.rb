@@ -1,34 +1,24 @@
 # Stock controller
 class StockController < ApplicationController
-  # #GET, get the turnovers by codes and date condition
-  # /stock, return today's turnovers
-  # /stock?codes=1314,2023, query multi codes with comma-separated string
-  # /stock?date=yyyyMMdd, query by date string format
-  # /stock?codes=1314,2023&date=yyyyMMdd, query by codes and date
-  def index
-    @turnovers =
-      if params[:codes] && params[:date]
-        Turnover
-          .find_by_code_and_date(
-            split_str_by_comma(params[:codes]),
-            validate_date(params[:date])
-          )
-      elsif params[:codes]
-        Turnover.find_by_code(split_str_by_comma(params[:codes]))
-      elsif params[:date]
-        Turnover.find_by_date(validate_date(params[:date]))
-      else
-        Turnover.find_by_date(Time.now)
-      end
-    render json: @turnovers, status: :ok
-  end
+  # /stock.json?... #GET get turnovers (JSON)
+  # /stock.xlsx?... #GET get turnovers (xlsx)
+  # /stock.json?codes={1314,2023}&date={yyyyMMdd}&sort={column_name}&direction={asc|desc}
+  # -------
+  # Example
+  # /stock.json, return today's turnovers
+  # /stock.json?codes=1314,2023, query multi codes with comma-separated string
+  # /stock.json?date=yyyyMMdd, query by date string format
+  # /stock.json?codes=1314,2023&date=yyyyMMdd, query by codes and date
 
-  # /stock/export.json?sort={column_name}&direction={asc|desc} #GET get turnovers (JSON) and order by column
-  # /stock/export.xlsx?sort={column_name}&direction={asc|desc} #GET get turnovers (xlsx) and order by column
-  def export
-    @turnovers = Turnover.sort_by(params[:sort], params[:direction])
+  def index
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = '1728000'
+
+    @turnovers = sort_array_of_obj(filter_turnovers, params[:sort], params[:direction])
+
     respond_to do |format|
-      format.json { render json: @turnovers }
+      format.json { render json: @turnovers, status: :ok }
       format.xlsx { response.headers['Content-Disposition'] = 'attachment; filename="turnovers.xlsx"' }
     end
   end
@@ -41,15 +31,43 @@ class StockController < ApplicationController
 
   private
 
+  def filter_turnovers
+    if params[:codes] && params[:date]
+      Turnover
+        .find_by_code_and_date(
+          split_str_by_comma(params[:codes]),
+          date_verify(params[:date])
+        )
+    elsif params[:codes]
+      Turnover.find_by_code(split_str_by_comma(params[:codes]))
+    elsif params[:date]
+      Turnover.find_by_date(date_verify(params[:date]))
+    else
+      Turnover.find_by_date(Time.now)
+    end
+  end
+
   # split and remove whitespace
   def split_str_by_comma(str)
     str.split(',').map(&:strip)
   end
 
-  def validate_date(date)
+  def date_verify(date)
     date.to_time
   rescue ArgumentError
     # date format doesn't match
     Time.now
+  end
+
+  # return the exist column name, default: 'created_at'
+  def sort_column_verify(column)
+    Turnover.column_names.include?(column) ? column : 'created_at'
+  end
+
+  def sort_array_of_obj(arr, attr, direction)
+    # return the sort direction, default: 'asc'
+    sort_direction = %w(asc desc).include?(direction) ? direction : 'asc'
+    sorted_arr = arr.sort { |a, b| a[attr] <=> b[attr] }
+    sort_direction == 'asc' ? sorted_arr : sorted_arr.reverse
   end
 end
