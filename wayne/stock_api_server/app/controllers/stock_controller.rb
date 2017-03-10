@@ -3,13 +3,16 @@ class StockController < ApplicationController
   # /stock.json?... #GET get turnovers (JSON)
   # /stock.xlsx?... #GET get turnovers (xlsx)
   # /stock.json?codes={1314,2023}&date={yyyyMMdd}&sort={column_name}&direction={asc|desc}
+  # All params are optional.
+  # Default query: today's turnovers
+  # Default sorting: order by id asc`
   # -------
   # Example
   # /stock.json, return today's turnovers
   # /stock.json?codes=1314,2023, query multi codes with comma-separated string
   # /stock.json?date=yyyyMMdd, query by date string format
   # /stock.json?codes=1314,2023&date=yyyyMMdd, query by codes and date
-
+  # /stock.json?sort=stock_volume&direction=desc, query today's turnovers and sort by params
   def index
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
@@ -59,9 +62,9 @@ class StockController < ApplicationController
     Time.now
   end
 
-  # return the exist column name, default: 'created_at'
+  # return the exist column name, default: 'id'
   def sort_column_verify(column)
-    Turnover.column_names.include?(column) ? column : 'created_at'
+    Turnover.column_names.include?(column) ? column : 'id'
   end
 
   def sort_array_of_obj(arr, attr, direction)
