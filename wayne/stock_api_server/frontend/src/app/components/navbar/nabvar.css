@@ -1,0 +1,8 @@
+.nav a.nav-item.is-brand {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.nav a.nav-item.is-brand:hover {
+  color: #00d1b2;
+}

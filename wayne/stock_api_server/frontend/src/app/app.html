@@ -1,106 +1,13 @@
-<nav class="nav">
-  <div class="container">
-    <div class="nav-left">
-      <a class="nav-item">
-        <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
-      </a>
-    </div>
-    <div class="nav-center">
-        <a class="nav-item" ng-href="{{app.gitlab_url}}">
-          <span class="icon">
-            <i class="fa fa-github"></i>
-          </span>
-        </a>
-    </div>
-  </div>
-</nav>
-
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Stock Report
-      </h1>
-      <h2 class="subtitle">
-        Data source:
-        <a ng-href="{{app.data_source_url}}">聚財網</a>
-      </h2>
-    </div>
-  </div>
-</section>
+<navbar link="app.github_url"></navbar>
+<hero link="app.data_source_url"></hero>
 
 <section class="section">
   <div class="container">
     <div class="columns">
       <div class="column is-7">
-        <div class="control is-grouped">
-          <p class="control is-expanded">
-            <input class="input" type="text" placeholder="Enter stock code...">
-          </p>
-          <p class="control is-expanded">
-            <span class="select is-fullwidth">
-              <select>
-                <option>Select Date</option>
-                <option>2017-03-09</option>
-                <option>2017-03-10</option>
-              </select>
-            </span>
-          </p>
-          <p class="control">
-            <a class="button is-info">
-              <span class="icon is-small">
-                <i class="fa fa-search"></i>
-              </span>
-              <span>Search</span>
-            </a>
-          </p>
-          <p class="control">
-            <a class="button is-success">
-              <span class="icon is-small">
-                <i class="fa fa-download"></i>
-              </span>
-              <span>Export to Excel</span>
-            </a>
-          </p>
-        </div>
+        <turnovers-form></turnovers-form>
       </div>
     </div>
-
-    <div class="content">
-      <table class="table is-striped">
-        <thead>
-          <tr>
-            <th>代號<span class="icon is-small"><i class="fa fa-caret-up"></i></span></th>
-            <th>名稱<span class="icon is-small"><i class="fa fa-caret-down"></i></span></th>
-            <th>開盤價</th>
-            <th>最高價</th>
-            <th>最低價</th>
-            <th>昨收盤</th>
-            <th>今收盤</th>
-            <th>成交量</th>
-            <th>漲跌</th>
-            <th>漲跌幅</th>
-            <th>資料時間<span class="icon is-small"><i class="fa fa-sort"></i></span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="t in app.turnovers">
-            <th>{{t.stock_code}}</th>
-            <td>
-              <a href="{{t.stock_company_uri}}">{{t.stock_name}}</a></strong>
-            </td>
-            <td>{{t.stock_opening_price}}</td>
-            <td>{{t.stock_highest_price}}</td>
-            <td>{{t.stock_lowest_price}}</td>
-            <td>{{t.stock_closing_yesterday}}</td>
-            <td>{{t.stock_closing_today}}</td>
-            <td>{{t.stock_volume}}</td>
-            <td>{{t.stock_change}}</td>
-            <td>{{t.stock_quote_change}}</td>
-            <td>{{t.created_at}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <turnovers-list turnovers="app.turnovers"></turnovers-list>
   </div>
 </section>
