@@ -1,11 +1,9 @@
 import './nabvar.css';
 
-const navbar = {
+export default {
   template: require('./navbar.html'),
   bindings: {
     // one-way bindings
     link: '<'
   }
 };
-
-export default navbar;
