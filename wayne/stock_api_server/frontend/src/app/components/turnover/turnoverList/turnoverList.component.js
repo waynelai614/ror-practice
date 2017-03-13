@@ -1,5 +1,5 @@
 export default {
-  template: require('./turnoversList.html'),
+  template: require('./turnoverList.html'),
   bindings: {
     // one-way bindings
     turnovers: '<'
