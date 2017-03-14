@@ -17,6 +17,12 @@ class TurnoverFormComponent {
       }
     });
   }
+  onClear() {
+    this.params = {
+      codes: '',
+      date: ''
+    };
+  }
 }
 
 export default {
