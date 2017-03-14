@@ -1,3 +1,6 @@
 export default {
-  template: require('./turnoverForm.html')
+  template: require('./turnoverForm.html'),
+  bindings: {
+    dates: '<'
+  }
 };

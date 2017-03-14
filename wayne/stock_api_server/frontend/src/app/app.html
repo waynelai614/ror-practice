@@ -5,9 +5,16 @@
   <div class="container">
     <div class="columns">
       <div class="column is-7">
-        <turnover-form></turnover-form>
+        <turnover-form dates="app.avaliable_date"></turnover-form>
       </div>
     </div>
-    <turnover-list turnovers="app.turnovers"></turnover-list>
+    <div ng-if="app.turnovers.length > 0">
+      <turnover-list turnovers="app.turnovers"></turnover-list>
+    </div>
+    <div ng-if="!app.turnovers.length">
+      <div class="notification">
+        <h1 class="title">No Data Found</h1>
+      </div>
+    </div>
   </div>
 </section>
