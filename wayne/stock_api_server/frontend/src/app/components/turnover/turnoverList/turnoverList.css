@@ -1,0 +1,38 @@
+/* Override the default setting '.table th' */
+.turnover-table.table th {
+  text-align: right;
+}
+
+.turnover-table.table th.text-center {
+  text-align: center;
+}
+
+.turnover-table tbody td:not(.has-text-centered) {
+  text-align: right;
+}
+
+.turnover-table thead th:not(:nth-last-child(1)) {
+  cursor: pointer;
+}
+
+.turnover-table nav.pagination {
+  margin: 8px 0;
+}
+
+.sort-column:after{
+  /* en dash */
+  content: '\2013';
+  margin-left: 0.3em;
+}
+
+.sort-column.st-sort-ascent:after{
+  /* black up pointing triangle */
+  content: '\25B2';
+  margin-left: 0.3em;
+}
+
+.sort-column.st-sort-descent:after{
+  /* black down pointing triangle */
+  content: '\25BC';
+  margin-left: 0.3em;
+}

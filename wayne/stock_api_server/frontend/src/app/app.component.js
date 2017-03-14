@@ -1,4 +1,8 @@
+// load css file in order
+// TODO: css-module
 import 'bulma/css/bulma.css';
+import './components/navbar/nabvar.css';
+import './components/turnover/turnoverList/turnoverList.css';
 
 class AppCtrl {
     constructor(turnoverService) {
@@ -10,7 +14,7 @@ class AppCtrl {
     getTurnovers() {
       console.log('call getTurnovers');
       this.turnoverService
-        .findByStockCode()
+        .getData()
         .then(response => this.turnovers = response.data);
     }
 

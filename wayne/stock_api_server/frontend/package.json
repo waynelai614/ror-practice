@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Foxandxss/angular-webpack-workflow",
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-smart-table": "^2.1.8",
     "bulma": "^0.3.2"
   },
   "devDependencies": {

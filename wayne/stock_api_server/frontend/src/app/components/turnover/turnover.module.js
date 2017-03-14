@@ -1,10 +1,11 @@
 import angular from 'angular';
 
-import turnoverForm from './turnoverForm/turnoverForm.component';
-import turnoverList from './turnoverList/turnoverList.component';
+import turnoverForm from './turnoverForm/turnoverForm.module';
+import turnoverList from './turnoverList/turnoverList.module';
 
 export default angular
-  .module('components.turnover', [])
-  .component('turnoverForm', turnoverForm)
-  .component('turnoverList', turnoverList)
+  .module('components.turnover', [
+    turnoverList,
+    turnoverForm
+  ])
   .name;
