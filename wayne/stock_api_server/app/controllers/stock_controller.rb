@@ -28,6 +28,10 @@ class StockController < ApplicationController
 
   # /stock/date #GET return the avaliable date string YYYY-MM-DD (the date has data)
   def date
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = '1728000'
+
     render json: Turnover.find_distinct_date, status: :ok
   end
 
