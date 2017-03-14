@@ -1,5 +1,8 @@
 class TurnoverFormComponent {
   constructor() {
+    'ngInject'; // Not actually needed but best practice to keep here incase dependencies needed in the future
+  }
+  $onInit() {
     this.params = {
       codes: '',
       date: ''
