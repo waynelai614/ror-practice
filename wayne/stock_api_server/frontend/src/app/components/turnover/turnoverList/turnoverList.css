@@ -36,3 +36,7 @@
   content: '\25BC';
   margin-left: 0.3em;
 }
+
+.control.download {
+  text-align: right;
+}
