@@ -7,7 +7,7 @@ export default angular
   .run(['$templateCache', ($templateCache) => {
     $templateCache.put('template/pagination.html',
       require('./pagination.html')
-    )
+    );
   }])
   .config((stConfig) => {
     stConfig.pagination.template = 'template/pagination.html';
