@@ -7,8 +7,10 @@ import './app.css';
 
 class AppComponent {
   constructor(turnoverService) {
-    this.github_url = 'https://github.com/waynelai614/ror-practice/tree/dev/wayne/wayne/stock_api_server';
-    this.data_source_url = 'http://stock.wearn.com/qua.asp';
+    this.link = {
+      github_url: 'https://github.com/waynelai614/ror-practice/tree/dev/wayne/wayne/stock_api_server',
+      data_source_url: 'http://stock.wearn.com/qua.asp'
+    }
     this.turnoverService = turnoverService;
   }
 
