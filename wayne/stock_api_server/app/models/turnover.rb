@@ -34,5 +34,7 @@ class Turnover < ActiveRecord::Base
     Turnover
       .select("distinct(to_char(created_at, 'YYYY-MM-DD'))")
       .map(&:to_char)
+      .sort
+      .reverse
   end
 end
