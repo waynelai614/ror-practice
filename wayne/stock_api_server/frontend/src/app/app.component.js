@@ -12,7 +12,6 @@ class AppCtrl {
     }
 
     getTurnovers() {
-      console.log('call getTurnovers');
       this.turnoverService
         .getData()
         .then(response => this.turnovers = response.data);

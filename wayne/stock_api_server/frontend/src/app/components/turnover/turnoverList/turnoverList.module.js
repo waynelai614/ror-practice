@@ -10,7 +10,6 @@ export default angular
     )
   }])
   .config((stConfig) => {
-    console.log(stConfig.pagination.template);
     stConfig.pagination.template = 'template/pagination.html';
   })
   .component('turnoverList', turnoverList)
