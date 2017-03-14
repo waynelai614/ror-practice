@@ -1,17 +1,17 @@
-<navbar link="app.github_url"></navbar>
-<hero link="app.data_source_url"></hero>
+<navbar link="$ctrl.github_url"></navbar>
+<hero link="$ctrl.data_source_url"></hero>
 
 <section class="section">
   <div class="container">
     <div class="columns">
       <div class="column is-7">
-        <turnover-form dates="app.avaliable_date"></turnover-form>
+        <turnover-form dates="$ctrl.avaliable_date"></turnover-form>
       </div>
     </div>
-    <div ng-if="app.turnovers.length > 0">
-      <turnover-list turnovers="app.turnovers"></turnover-list>
+    <div ng-if="$ctrl.turnovers.length > 0">
+      <turnover-list turnovers="$ctrl.turnovers"></turnover-list>
     </div>
-    <div ng-if="!app.turnovers.length">
+    <div ng-if="!$ctrl.turnovers.length">
       <div class="notification">
         <h1 class="title">No Data Found</h1>
       </div>

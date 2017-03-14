@@ -5,7 +5,7 @@ import './components/navbar/nabvar.css';
 import './components/turnover/turnoverList/turnoverList.css';
 import './app.css';
 
-class AppCtrl {
+class AppComponent {
   constructor(turnoverService) {
     this.github_url = 'https://github.com/waynelai614/ror-practice/tree/dev/wayne/wayne/stock_api_server';
     this.data_source_url = 'http://stock.wearn.com/qua.asp';
@@ -33,6 +33,5 @@ class AppCtrl {
 
 export default {
   template: require('./app.html'),
-  controller: AppCtrl,
-  controllerAs: 'app'
+  controller: AppComponent
 };
