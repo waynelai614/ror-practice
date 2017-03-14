@@ -1,6 +1,8 @@
 StockApiServer::Application.routes.draw do
   scope '/api' do
     resources :stock, only: [:index] do
+      # /api/stock/date #GET return the avaliable date string YYYY-MM-DD (the date has data)
+      get 'date', on: :collection
       # /api/stock/crawl #POST update today's turnovers
       post 'crawl', on: :collection
     end

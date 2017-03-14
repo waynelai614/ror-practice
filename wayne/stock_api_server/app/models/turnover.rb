@@ -29,4 +29,10 @@ class Turnover < ActiveRecord::Base
       .where(stock_code: [codes])
       .where(created_at: date.beginning_of_day..date.end_of_day)
   end
+
+  def self.find_distinct_date
+    Turnover
+      .select("distinct(to_char(created_at, 'YYYY-MM-DD'))")
+      .map(&:to_char)
+  end
 end

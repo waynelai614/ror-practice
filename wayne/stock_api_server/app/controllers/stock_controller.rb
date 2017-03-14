@@ -26,6 +26,11 @@ class StockController < ApplicationController
     end
   end
 
+  # /stock/date #GET return the avaliable date string YYYY-MM-DD (the date has data)
+  def date
+    render json: Turnover.find_distinct_date, status: :ok
+  end
+
   # /stock/crawl #POST update today's turnovers
   def crawl
     @turnovers = Crawler.crawl_data_to_db
