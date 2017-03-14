@@ -9,19 +9,14 @@ class TurnoverService {
     return this.$http.get(`${API_HOST}/api/stock/date`);
   }
 
-  getData() {
+  getTodaysTurnovers() {
     return this.$http.get(`${API_HOST}/api/stock.json`);
   }
 
-  findByStockCode(code) {
-    return this.$http.get(`${API_HOST}/api/stock.json?stock_code=${code}`, 
-      {
-        params: {
-          codes: '1314,2303'
-        }
-      });
+  getByParams(params) {
+    if (!params.codes) delete params.codes;
+    return this.$http.get(`${API_HOST}/api/stock.json`, { params });
   }
-
 }
 
 export default TurnoverService;
