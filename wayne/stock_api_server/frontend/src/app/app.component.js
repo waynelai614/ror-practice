@@ -6,6 +6,7 @@ import './components/turnover/turnoverList/turnoverList.css';
 import './app.css';
 
 const DEFAULT_STATE = {
+  isLoading: false,
   searchTerm: {
     codes: '',
     date: ''
@@ -41,7 +42,12 @@ class AppComponent {
 
   getByParams({ params }) {
     if (!params) return;
-    this.turnoverService.getByParams(params).then(response => this.state.turnovers = response.data);
+    this.state.isLoading = true;
+
+    this.turnoverService.getByParams(params).then(response => {
+      this.state.turnovers = response.data;
+      this.state.isLoading = false;
+    });
     this.state.searchTerm = Object.assign({}, this.state.searchTerm, DEFAULT_STATE.searchTerm, params);
     // update download link when searchTerm change
     this.updateDownloadLink();
