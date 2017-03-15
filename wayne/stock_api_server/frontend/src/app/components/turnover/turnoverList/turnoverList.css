@@ -40,3 +40,27 @@
 .control.download {
   text-align: right;
 }
+
+.stock-volume {
+  color: #3273dc;
+}
+
+.price-up {
+  color: #ec008c;
+}
+
+.price-up:before {
+  content: '\25B2';
+  margin-left: 1em;
+  float: left;
+}
+
+.price-down {
+  color: #009900;
+}
+
+.price-down:before {
+  content: '\25BC';
+  margin-left: 1em;
+  float: left;
+}

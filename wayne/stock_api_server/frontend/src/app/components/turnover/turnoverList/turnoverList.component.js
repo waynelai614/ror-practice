@@ -5,6 +5,9 @@ class TurnoverListComponent {
   updateTableState(tableState) {
     this.onUpdateTableState({ tableState });
   }
+  getAbsoluteValue(number) {
+    return Math.abs(number);
+  }
 }
 
 export default {

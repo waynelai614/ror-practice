@@ -34,14 +34,16 @@
       <td class="has-text-centered">
         <a href="{{t.stock_company_uri}}">{{t.stock_name}}</a></strong>
       </td>
-      <td>{{t.stock_opening_price}}</td>
-      <td>{{t.stock_highest_price}}</td>
-      <td>{{t.stock_lowest_price}}</td>
-      <td>{{t.stock_closing_yesterday}}</td>
-      <td>{{t.stock_closing_today}}</td>
-      <td>{{t.stock_volume}}</td>
-      <td>{{t.stock_change}}</td>
-      <td>{{t.stock_quote_change}}</td>
+      <td>{{t.stock_opening_price | number:2}}</td>
+      <td>{{t.stock_highest_price | number:2}}</td>
+      <td>{{t.stock_lowest_price | number:2}}</td>
+      <td>{{t.stock_closing_yesterday | number:2}}</td>
+      <td>{{t.stock_closing_today | number:2}}</td>
+      <td class="stock-volume">{{t.stock_volume | number}}</td>
+      <td ng-class="{{t.stock_change > 0}} ? 'price-up' : 'price-down'">
+        {{$ctrl.getAbsoluteValue(t.stock_change) | number:2}}
+      </td>
+      <td>{{t.stock_quote_change | number:2}}%</td>
       <td class="has-text-centered">{{t.created_at}}</td>
     </tr>
   </tbody>
