@@ -24,6 +24,7 @@ class AppComponent {
       data_source_url: 'http://stock.wearn.com/qua.asp'
     };
     this.state = DEFAULT_STATE;
+    this.tableState = {};
     this.turnovers = [];
     this.avaliable_date = [];
 
@@ -35,6 +36,11 @@ class AppComponent {
     if (!params) return;
     this.turnoverService.getByParams(params).then(response => this.turnovers = response.data);
     this.state = Object.assign({}, this.state, DEFAULT_STATE, params);
+  }
+
+  updateTableState(tableState) {
+    if (!tableState) return;
+    this.tableState = Object.assign({}, this.tableState, tableState);
   }
 }
 

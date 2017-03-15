@@ -6,7 +6,13 @@
     <span>Export to Excel</span>
   </a>
 </p>
-<table st-table="$ctrl.displayedCollection" st-safe-src="$ctrl.turnovers" class="table is-striped turnover-table">
+<table
+  st-persist 
+  on-update-table-state='$ctrl.updateTableState(tableState);'
+  st-table="$ctrl.displayedCollection"
+  st-safe-src="$ctrl.turnovers"
+  class="table is-striped turnover-table"
+>
   <thead>
     <tr>
       <th st-sort="stock_code" class="sort-column text-center">代號</th>

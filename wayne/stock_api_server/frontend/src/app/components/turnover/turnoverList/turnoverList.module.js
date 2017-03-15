@@ -12,5 +12,22 @@ export default angular
   .config((stConfig) => {
     stConfig.pagination.template = 'template/pagination.html';
   })
+  .directive('stPersist', () => {
+    return {
+      require: '^stTable',
+      scope: {
+        onUpdateTableState: '&'
+      },
+      link: function (scope, element, attr, ctrl) {
+        // update the table state every time it changes
+        scope.$watch(() => ctrl.tableState()
+        , (newValue, oldValue) => {
+          if (newValue !== oldValue) {
+            scope.onUpdateTableState({ tableState: newValue });
+          }
+        }, true);
+      }
+    };
+  })
   .component('turnoverList', turnoverList)
   .name;

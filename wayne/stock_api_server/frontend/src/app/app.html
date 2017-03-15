@@ -13,7 +13,10 @@
       </div>
     </div>
     <div ng-if="app.turnovers.length > 0">
-      <turnover-list turnovers="app.turnovers"></turnover-list>
+      <turnover-list
+        turnovers="app.turnovers"
+        on-update-table-state="app.updateTableState(tableState);"        
+      ></turnover-list>
     </div>
     <div ng-if="!app.turnovers.length">
       <div class="notification">
