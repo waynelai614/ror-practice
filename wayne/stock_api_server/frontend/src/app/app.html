@@ -1,24 +1,24 @@
-<navbar link="app.link.github_url"></navbar>
-<hero link="app.link.data_source_url"></hero>
+<navbar link="app.state.link.github_url"></navbar>
+<hero link="app.state.link.data_source_url"></hero>
 
 <section class="section">
   <div class="container">
     <div class="columns">
       <div class="column is-6">
         <turnover-form
-          dates="app.avaliable_date"
+          dates="app.state.avaliable_date"
           on-get-by-params="app.getByParams($event);"
         >
         </turnover-form>
       </div>
     </div>
-    <div ng-if="app.turnovers.length > 0">
+    <div ng-if="app.state.turnovers.length > 0">
       <turnover-list
-        turnovers="app.turnovers"
-        on-update-table-state="app.updateTableState(tableState);"        
+        turnovers="app.state.turnovers"
+        on-update-table-state="app.updateTableState(tableState);"
       ></turnover-list>
     </div>
-    <div ng-if="!app.turnovers.length">
+    <div ng-if="!app.state.turnovers.length">
       <div class="notification">
         <h1 class="title">No Data Found</h1>
       </div>

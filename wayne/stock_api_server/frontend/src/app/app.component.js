@@ -6,10 +6,23 @@ import './components/turnover/turnoverList/turnoverList.css';
 import './app.css';
 
 const DEFAULT_STATE = {
-  codes: '',
-  date: '',
-  sort: 'stock_volume',
-  direction: 'direction'
+  searchTerm: {
+    codes: '',
+    date: ''
+  },
+  table: {
+    sort: {
+      predicate: 'stock_volume',
+      reverse: true
+    }
+  },
+  turnovers: [],
+  avaliable_date: [],
+  link: {
+    github_url: 'https://github.com/waynelai614/ror-practice/tree/dev/wayne/wayne/stock_api_server',
+    data_source_url: 'http://stock.wearn.com/qua.asp',
+    download_url: ''
+  }
 };
 
 class AppComponent {
@@ -19,28 +32,22 @@ class AppComponent {
   }
 
   $onInit() {
-    this.link = {
-      github_url: 'https://github.com/waynelai614/ror-practice/tree/dev/wayne/wayne/stock_api_server',
-      data_source_url: 'http://stock.wearn.com/qua.asp'
-    };
-    this.state = DEFAULT_STATE;
-    this.tableState = {};
-    this.turnovers = [];
-    this.avaliable_date = [];
+    // copy the default state object
+    this.state = Object.assign({}, DEFAULT_STATE);
 
-    this.turnoverService.getTodaysTurnovers().then(response => this.turnovers = response.data);
-    this.turnoverService.getDates().then(response => this.avaliable_date = response.data);
+    this.turnoverService.getTodaysTurnovers().then(response => this.state.turnovers = response.data);
+    this.turnoverService.getDates().then(response => this.state.avaliable_date = response.data);
   }
 
   getByParams({ params }) {
     if (!params) return;
-    this.turnoverService.getByParams(params).then(response => this.turnovers = response.data);
-    this.state = Object.assign({}, this.state, DEFAULT_STATE, params);
+    this.turnoverService.getByParams(params).then(response => this.state.turnovers = response.data);
+    this.state.searchTerm = Object.assign({}, this.state.searchTerm, DEFAULT_STATE.searchTerm, params);
   }
 
   updateTableState(tableState) {
     if (!tableState) return;
-    this.tableState = Object.assign({}, this.tableState, tableState);
+    this.state.table = Object.assign({}, this.state.table, tableState);
   }
 }
 
