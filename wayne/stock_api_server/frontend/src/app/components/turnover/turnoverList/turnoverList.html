@@ -40,8 +40,8 @@
       <td>{{t.stock_closing_yesterday | number:2}}</td>
       <td>{{t.stock_closing_today | number:2}}</td>
       <td class="stock-volume">{{t.stock_volume | number}}</td>
-      <td ng-class="{{t.stock_change > 0}} ? 'price-up' : 'price-down'">
-        {{$ctrl.getAbsoluteValue(t.stock_change) | number:2}}
+      <td ng-class="{{t.stock_change == 0}} ? '' : ( {{t.stock_change > 0}} ? 'price-up' : 'price-down')">
+        {{$ctrl.getAbsoluteValue(t.stock_change)}}
       </td>
       <td>{{t.stock_quote_change | number:2}}%</td>
       <td class="has-text-centered">{{t.created_at}}</td>

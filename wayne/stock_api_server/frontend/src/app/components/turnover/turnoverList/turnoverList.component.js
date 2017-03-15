@@ -6,7 +6,7 @@ class TurnoverListComponent {
     this.onUpdateTableState({ tableState });
   }
   getAbsoluteValue(number) {
-    return Math.abs(number);
+    return number == 0 ? number : Math.abs(number).toFixed(2);
   }
 }
 
