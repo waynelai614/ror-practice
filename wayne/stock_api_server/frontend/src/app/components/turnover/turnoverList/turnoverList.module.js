@@ -18,7 +18,7 @@ export default angular
       scope: {
         onUpdateTableState: '&'
       },
-      link: function (scope, element, attr, ctrl) {
+      link: (scope, element, attr, ctrl) => {
         // update the table state every time it changes
         scope.$watch(() => ctrl.tableState()
         , (newValue, oldValue) => {

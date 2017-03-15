@@ -13,6 +13,7 @@ export default {
   bindings: {
     // one-way bindings
     turnovers: '<',
+    downloadUrl: '<',
     onUpdateTableState: '&'
   }
 };

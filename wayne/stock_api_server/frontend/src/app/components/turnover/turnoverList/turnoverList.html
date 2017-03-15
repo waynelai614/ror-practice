@@ -1,5 +1,5 @@
 <p class="control download">
-  <a class="button is-success" href="http://0.0.0.0:3000/api/stock.xlsx">
+  <a class="button is-success" href="{{$ctrl.downloadUrl}}">
     <span class="icon is-small">
       <i class="fa fa-download"></i>
     </span>
@@ -7,7 +7,7 @@
   </a>
 </p>
 <table
-  st-persist 
+  st-persist
   on-update-table-state='$ctrl.updateTableState(tableState);'
   st-table="$ctrl.displayedCollection"
   st-safe-src="$ctrl.turnovers"

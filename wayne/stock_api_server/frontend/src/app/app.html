@@ -15,6 +15,7 @@
     <div ng-if="app.state.turnovers.length > 0">
       <turnover-list
         turnovers="app.state.turnovers"
+        download-url="app.state.link.download_url"
         on-update-table-state="app.updateTableState(tableState);"
       ></turnover-list>
     </div>

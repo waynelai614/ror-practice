@@ -43,11 +43,27 @@ class AppComponent {
     if (!params) return;
     this.turnoverService.getByParams(params).then(response => this.state.turnovers = response.data);
     this.state.searchTerm = Object.assign({}, this.state.searchTerm, DEFAULT_STATE.searchTerm, params);
+    // update download link when searchTerm change
+    this.updateDownloadLink();
   }
 
   updateTableState(tableState) {
     if (!tableState) return;
     this.state.table = Object.assign({}, this.state.table, tableState);
+    // update download link when table state change
+    this.updateDownloadLink();
+  }
+
+  updateDownloadLink() {
+    const { codes, date } = this.state.searchTerm;
+    let params = [codes, date];
+    // check state.table.sort obj is empty or not
+    if (Object.keys(this.state.table.sort).length !== 0 ) {
+      const { predicate, reverse } = this.state.table.sort;
+      let direction = reverse == true ? 'desc' : 'asc';
+      params.push(predicate, direction);
+    }
+    this.state.link.download_url = this.turnoverService.getDownloadLink(...params);
   }
 }
 
