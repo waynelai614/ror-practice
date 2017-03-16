@@ -7,3 +7,9 @@ Documentation:
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 15
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
