@@ -1,6 +1,5 @@
 # Stock controller
 class StockController < ApplicationController
-
   SUCCESS_STR = 'success'.freeze
 
   # /stock.json?... #GET get turnovers (JSON)
@@ -17,9 +16,7 @@ class StockController < ApplicationController
   # /stock.json?codes=1314,2023&date=yyyyMMdd, query by codes and date
   # /stock.json?sort=stock_volume&direction=desc, query today's turnovers and sort by params
   def index
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = '1728000'
+    allow_cors
 
     @turnovers = sort_array_of_obj(filter_turnovers, params[:sort], params[:direction])
 
@@ -31,9 +28,7 @@ class StockController < ApplicationController
 
   # /stock/date #GET return the avaliable date string YYYY-MM-DD (the date has data)
   def date
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = '1728000'
+    allow_cors
 
     render json: Turnover.find_distinct_date, status: :ok
   end
@@ -45,6 +40,14 @@ class StockController < ApplicationController
   end
 
   private
+
+  def allow_cors
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = '1728000'
+
+    headers
+  end
 
   def filter_turnovers
     if params[:codes] && params[:date]

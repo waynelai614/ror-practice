@@ -20,6 +20,7 @@ RSpec.describe StockController, type: :controller do
         get :index, format: :json
         expect(response).to have_http_status(200)
         expect(response.content_type).to eq Mime::JSON.to_s
+        expect(response.headers['Access-Control-Allow-Origin']).to eq('*')
         expect((JSON.parse response.body).length).to eq(data_count)
       end
 
@@ -44,6 +45,7 @@ RSpec.describe StockController, type: :controller do
         get :date
         expect(response).to have_http_status(200)
         expect(response.content_type).to eq Mime::JSON.to_s
+        expect(response.headers['Access-Control-Allow-Origin']).to eq('*')
         expect((JSON.parse response.body).length).to eq(distinct_date.length)
       end
     end
