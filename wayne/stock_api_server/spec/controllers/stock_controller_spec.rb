@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'crawler'
 
 RSpec.describe StockController, type: :controller do
   let(:data_count) { Crawler::DATA_COUNT }
