@@ -1,16 +1,16 @@
 FactoryGirl.define do
   factory :turnover do
-    stock_code 2603
-    stock_name '長榮'
-    stock_company_uri 'http://stock.wearn.com/a2603.html'
-    stock_opening_price 15.3
-    stock_highest_price 15.75
-    stock_lowest_price 15.2
-    stock_closing_yesterday 15
-    stock_closing_today 15.3
-    stock_volume 39_130
-    stock_change 0.3
-    stock_quote_change 2
+    stock_code { Faker::Number.number(4) }
+    stock_name { Faker::Name.name }
+    stock_company_uri { Faker::Internet.url('stock.wearn.com') }
+    stock_opening_price { Faker::Number.decimal(2) }
+    stock_highest_price { Faker::Number.decimal(2) }
+    stock_lowest_price { Faker::Number.decimal(2) }
+    stock_closing_yesterday { Faker::Number.decimal(2) }
+    stock_closing_today { Faker::Number.decimal(2) }
+    stock_volume { Faker::Number.number(5) }
+    stock_change { Faker::Number.decimal(2) }
+    stock_quote_change { Faker::Number.decimal(2) }
 
     created_at Time.now
     updated_at Time.now

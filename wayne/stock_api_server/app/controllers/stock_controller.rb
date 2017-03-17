@@ -1,5 +1,8 @@
 # Stock controller
 class StockController < ApplicationController
+  SUCCESS_STR = 'success'.freeze
+  XLSX_FILENAME = 'turnovers.xlsx'.freeze
+
   # /stock.json?... #GET get turnovers (JSON)
   # /stock.xlsx?... #GET get turnovers (xlsx)
   # /stock.json?codes={1314,2023}&date={yyyyMMdd}&sort={column_name}&direction={asc|desc}
@@ -14,23 +17,19 @@ class StockController < ApplicationController
   # /stock.json?codes=1314,2023&date=yyyyMMdd, query by codes and date
   # /stock.json?sort=stock_volume&direction=desc, query today's turnovers and sort by params
   def index
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = '1728000'
+    allow_cors
 
     @turnovers = sort_array_of_obj(filter_turnovers, params[:sort], params[:direction])
 
     respond_to do |format|
       format.json { render json: @turnovers, status: :ok }
-      format.xlsx { response.headers['Content-Disposition'] = 'attachment; filename="turnovers.xlsx"' }
+      format.xlsx { response.headers['Content-Disposition'] = "attachment; filename=\"#{XLSX_FILENAME}\"" }
     end
   end
 
   # /stock/date #GET return the avaliable date string YYYY-MM-DD (the date has data)
   def date
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = '1728000'
+    allow_cors
 
     render json: Turnover.find_distinct_date, status: :ok
   end
@@ -38,10 +37,18 @@ class StockController < ApplicationController
   # /stock/crawl #POST update today's turnovers
   def crawl
     @turnovers = Crawler.crawl_data_to_db
-    render json: { status: 'success', create_time: Time.now, data: @turnovers }, status: :ok
+    render json: { status: SUCCESS_STR, create_time: Time.now, data: @turnovers }, status: :ok
   end
 
   private
+
+  def allow_cors
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = '1728000'
+
+    headers
+  end
 
   def filter_turnovers
     if params[:codes] && params[:date]
@@ -76,9 +83,13 @@ class StockController < ApplicationController
     Turnover.column_names.include?(column) ? column : 'id'
   end
 
-  def sort_array_of_obj(arr, attr, direction)
+  def direction_verify(direction)
     # return the sort direction, default: 'asc'
-    sort_direction = %w(asc desc).include?(direction) ? direction : 'asc'
+    %w(asc desc).include?(direction) ? direction : 'asc'
+  end
+
+  def sort_array_of_obj(arr, attr, direction)
+    sort_direction = direction_verify(direction)
     sorted_arr = arr.sort { |a, b| a[attr] <=> b[attr] }
     sort_direction == 'asc' ? sorted_arr : sorted_arr.reverse
   end
