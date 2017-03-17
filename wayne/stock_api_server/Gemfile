@@ -46,11 +46,15 @@ gem 'nokogiri'
 gem 'whenever', require: false
 
 # Spreadsheet templates for Rails
+gem 'axlsx', '2.1.0.pre'
 gem 'axlsx_rails'
+gem 'rubyzip', '~> 1.1.0'
 
 group :development, :test do
   # testing framework for Rails
   gem 'rspec-rails'
   # For setting up Ruby objects as test data
   gem 'factory_girl_rails', '~> 4.0'
+  # Roo implements read access for all common spreadsheet types
+  gem 'roo', '~> 2.7.0'
 end

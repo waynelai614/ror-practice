@@ -11,5 +11,20 @@ FactoryGirl.define do
     stock_volume 39_130
     stock_change 0.3
     stock_quote_change 2
+
+    created_at Time.now
+    updated_at Time.now
+
+    factory :turnover_without_code do
+      stock_code nil
+    end
+
+    factory :turnover_without_name do
+      stock_name nil
+    end
+
+    factory :turnover_invalid_code do
+      stock_code 777
+    end
   end
 end
