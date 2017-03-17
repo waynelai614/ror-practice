@@ -1,5 +1,8 @@
 # Stock controller
 class StockController < ApplicationController
+
+  SUCCESS_STR = 'success'.freeze
+
   # /stock.json?... #GET get turnovers (JSON)
   # /stock.xlsx?... #GET get turnovers (xlsx)
   # /stock.json?codes={1314,2023}&date={yyyyMMdd}&sort={column_name}&direction={asc|desc}
@@ -38,7 +41,7 @@ class StockController < ApplicationController
   # /stock/crawl #POST update today's turnovers
   def crawl
     @turnovers = Crawler.crawl_data_to_db
-    render json: { status: 'success', create_time: Time.now, data: @turnovers }, status: :ok
+    render json: { status: SUCCESS_STR, create_time: Time.now, data: @turnovers }, status: :ok
   end
 
   private
