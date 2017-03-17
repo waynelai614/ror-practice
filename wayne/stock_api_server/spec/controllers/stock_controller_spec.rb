@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe StockController, type: :controller do
+  # make private methods as public:
+  StockController.send(:public, *StockController.private_instance_methods)
+
   let(:data_count) { Crawler::DATA_COUNT }
   let(:fake_turnovers) { build_list(:turnover, data_count) }
   let(:distinct_date) { %w(20170315 20170316) }
@@ -61,6 +64,77 @@ RSpec.describe StockController, type: :controller do
         expect(response.content_type).to eq Mime::JSON.to_s
         expect((JSON.parse response.body).fetch('status')).to eq(StockController::SUCCESS_STR)
       end
+    end
+  end
+
+  context 'when params has "codes"' do
+    before(:context) do
+      @code = '1314'
+      @codes_with_comma = '1314,6116'
+
+      @code_array = @code.split(',').map(&:strip)
+      @codes_array = @codes_with_comma.split(',').map(&:strip)
+    end
+
+    it 'only one stock code' do
+      expect(controller.split_str_by_comma(@code)).to eq(@code_array)
+    end
+
+    it 'comma-separated multi stock codes' do
+      expect(controller.split_str_by_comma(@codes_with_comma)).to eq(@codes_array)
+    end
+  end
+
+  context 'when params has "date"' do
+    before(:context) do
+      @date = '20170316'
+      @error_date = '2015316093281'
+    end
+
+    it 'standard date formats' do
+      expect(controller.date_verify(@date)).to eq(@date.to_time)
+    end
+
+    it 'unkonwn date formats' do
+      # if date format doesn't match, return Time.now
+      # due to the delay, test the date format
+      expect(controller.date_verify(@error_date).strftime('%F')).to eq(Time.now.strftime('%F'))
+    end
+  end
+
+  context 'when params has "sort" & "direction"' do
+    before(:context) do
+      @sort = 'stock_code'
+      @error_sort = 'idontknow'
+      @direction = 'asc'
+      @error_direction = 'reverse'
+    end
+
+    context 'sort value' do
+      it 'can\'t find sort column in Turnover model' do
+        # if not exist, return 'id' column
+        expect(controller.sort_column_verify(@error_sort)).to eq('id')
+      end
+      it 'found sort column in Turnover model' do
+        expect(controller.sort_column_verify(@sort)).to eq(@sort)
+      end
+    end
+
+    context 'direction value' do
+      it 'invalid, not "asc" or "desc"' do
+        # if not valid, return default 'asc'
+        expect(controller.direction_verify(@error_direction)).to eq('asc')
+      end
+      it 'valid' do
+        expect(controller.direction_verify(@direction)).to eq(@direction)
+      end
+    end
+
+    it 'return result with correct order' do
+      turnovers = controller.sort_array_of_obj(fake_turnovers, @sort, @direction).first(2)
+      first_stock_code = turnovers[0].stock_code
+      second_stock_code = turnovers[1].stock_code
+      expect(first_stock_code).to be < second_stock_code
     end
   end
 end

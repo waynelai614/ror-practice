@@ -83,9 +83,13 @@ class StockController < ApplicationController
     Turnover.column_names.include?(column) ? column : 'id'
   end
 
-  def sort_array_of_obj(arr, attr, direction)
+  def direction_verify(direction)
     # return the sort direction, default: 'asc'
-    sort_direction = %w(asc desc).include?(direction) ? direction : 'asc'
+    %w(asc desc).include?(direction) ? direction : 'asc'
+  end
+
+  def sort_array_of_obj(arr, attr, direction)
+    sort_direction = direction_verify(direction)
     sorted_arr = arr.sort { |a, b| a[attr] <=> b[attr] }
     sort_direction == 'asc' ? sorted_arr : sorted_arr.reverse
   end
