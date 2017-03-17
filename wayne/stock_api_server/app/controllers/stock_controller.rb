@@ -1,6 +1,7 @@
 # Stock controller
 class StockController < ApplicationController
   SUCCESS_STR = 'success'.freeze
+  XLSX_FILENAME = 'turnovers.xlsx'.freeze
 
   # /stock.json?... #GET get turnovers (JSON)
   # /stock.xlsx?... #GET get turnovers (xlsx)
@@ -22,7 +23,7 @@ class StockController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @turnovers, status: :ok }
-      format.xlsx { response.headers['Content-Disposition'] = 'attachment; filename="turnovers.xlsx"' }
+      format.xlsx { response.headers['Content-Disposition'] = "attachment; filename=\"#{XLSX_FILENAME}\"" }
     end
   end
 

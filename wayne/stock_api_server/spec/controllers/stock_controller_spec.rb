@@ -4,7 +4,6 @@ require 'crawler'
 RSpec.describe StockController, type: :controller do
   let(:data_count) { Crawler::DATA_COUNT }
   let(:fake_turnovers) { build_list(:turnover, data_count) }
-  let(:filename_test) { 'turnovers.xlsx' }
   let(:distinct_date) { %w(20170315 20170316) }
 
   describe 'GET #index' do
@@ -28,7 +27,7 @@ RSpec.describe StockController, type: :controller do
         # /api/stock.xlsx
         get :index, format: :xlsx
         expect(response.content_type).to eq(Mime::XLSX.to_s)
-        expect(response.headers['Content-Disposition']).to include("filename=\"#{filename_test}\"")
+        expect(response.headers['Content-Disposition']).to include("filename=\"#{StockController::XLSX_FILENAME}\"")
         expect(response).to render_template('stock/index')
       end
     end
