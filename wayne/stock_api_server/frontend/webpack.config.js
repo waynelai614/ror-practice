@@ -1,6 +1,7 @@
 'use strict';
 
 // Modules
+var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -223,6 +224,15 @@ module.exports = function makeWebpackConfig() {
     contentBase: './src/public',
     stats: 'minimal'
   };
+
+  /**
+  * load environment-dependant variables
+  */
+  config.resolve = {
+    alias: {
+      config: path.resolve(__dirname,  isProd ? 'config/prod' : 'config/dev')
+    }
+  }
 
   return config;
 }();

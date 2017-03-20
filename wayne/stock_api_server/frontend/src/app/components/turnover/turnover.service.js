@@ -1,4 +1,6 @@
-const API_HOST = 'http://0.0.0.0:3000';
+import config from 'config';
+
+const API_HOST = config.API_HOST;
 
 class TurnoverService {
   constructor($http) {
