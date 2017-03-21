@@ -9,7 +9,8 @@ StockApiServer::Application.routes.draw do
   end
 
   # home root
-  root to: 'stock#index'
+  # root to: 'public/stock/index.html'
+  root to: redirect('/stock')
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
