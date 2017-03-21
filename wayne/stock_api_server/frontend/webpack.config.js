@@ -1,6 +1,7 @@
 'use strict';
 
 // Modules
+var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -45,7 +46,7 @@ module.exports = function makeWebpackConfig() {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://localhost:8080/',
+    publicPath: isProd ? '/stock' : 'http://0.0.0.0:8080/',
 
     // Filename for entry points
     // Only adds hash in build mode
@@ -86,7 +87,11 @@ module.exports = function makeWebpackConfig() {
       // Transpile .js files using babel-loader
       // Compiles ES6 and ES7 into ES5 code
       test: /\.js$/,
-      loader: 'babel-loader',
+      use: [
+        // Add, remove and rebuild AngularJS dependency injection annotations
+        { loader: 'ng-annotate-loader', options: { es6: true } },
+        { loader: 'babel-loader'}
+      ],
       exclude: /node_modules/
     }, {
       // CSS LOADER
@@ -219,6 +224,15 @@ module.exports = function makeWebpackConfig() {
     contentBase: './src/public',
     stats: 'minimal'
   };
+
+  /**
+  * load environment-dependant variables
+  */
+  config.resolve = {
+    alias: {
+      config: path.resolve(__dirname,  isProd ? 'config/prod' : 'config/dev')
+    }
+  }
 
   return config;
 }();
