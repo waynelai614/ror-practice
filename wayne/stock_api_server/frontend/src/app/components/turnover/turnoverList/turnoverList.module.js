@@ -10,6 +10,7 @@ export default angular
     );
   }])
   .config((stConfig) => {
+    'ngInject';
     stConfig.pagination.template = 'template/pagination.html';
   })
   .directive('stPersist', () => {
