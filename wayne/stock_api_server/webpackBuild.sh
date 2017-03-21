@@ -1,11 +1,2 @@
 #!/bin/bash
-pwd
-echo '# clean public/stock folder'
-rm -rf public/stock
-echo '# go into frontend folder'
-cd frontend
-pwd
-echo '# npm run build'
-npm run build
-echo '# move dist to ../public/stock'
-mv dist ../public/stock
+docker-compose exec web /bin/bash -c "rm -rf public/stock && cd frontend && npm run build && mv dist ../public/stock"
