@@ -29,6 +29,11 @@ You can list installed cron jobs using `$ crontab -l`
 
 Visit: [http://0.0.0.0:3000](http://0.0.0.0:3000)
 
+### Crawl stock website via API
+`
+#POST http://0.0.0.0:3000/api/stock/crawl
+`
+
 ### Develop
 Check container name `stockapiserver_web_1` & `stockapiserver_db_1` status is up
 
