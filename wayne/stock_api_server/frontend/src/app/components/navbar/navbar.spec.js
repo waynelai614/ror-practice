@@ -9,6 +9,7 @@ describe('Module: components.navbar', () => {
 
     let parentScope;
     let element;
+    let linkElement;
 
     beforeEach(() => {
       angular.mock.module(navbar);
@@ -21,19 +22,19 @@ describe('Module: components.navbar', () => {
         $compile(element)(parentScope);
 
         parentScope.$digest();
+
+        linkElement = angular.element(element[0].querySelector('.github-link'));
       });
     });
 
     it('displays initial value of link attr', () => {
-      const linkValue = angular.element(element[0].querySelector('.github-link')).attr('ng-href');
-      expect(linkValue).toBe(INITIAL_VALUE);
+      expect(linkElement.attr('ng-href')).toBe(INITIAL_VALUE);
     });
 
     it('displays changed value of link attr', () => {
       parentScope.linkAttr = CHANGED_VALUE;
       parentScope.$digest();
-      const linkValue = angular.element(element[0].querySelector('.github-link')).attr('ng-href');
-      expect(linkValue).toBe(CHANGED_VALUE);
+      expect(linkElement.attr('ng-href')).toBe(CHANGED_VALUE);
     });
   });
 });

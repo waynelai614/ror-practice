@@ -12,6 +12,8 @@ describe('Module: components.turnoverForm', () => {
     let element;
     let stockCodeInput;
     let dateSelect;
+    let searchButton;
+    let clearButton;
 
     beforeEach(() => {
       angular.mock.module(turnoverForm);
@@ -32,29 +34,28 @@ describe('Module: components.turnoverForm', () => {
 
         parentScope.$digest();
 
-        // get stock codes input & date select
+        // get elements
         stockCodeInput = angular.element(element[0].querySelector('.stock-codes'));
         dateSelect = angular.element(element[0].querySelector('.stock-date'));
+        searchButton = angular.element(element[0].querySelector('.search-button'));
+        clearButton = angular.element(element[0].querySelector('.clear-button'));
       });
     });
 
     it('displays initial value of dates attr', () => {
-      const optionLength = element[0].querySelectorAll('select > option[ng-repeat]').length;
+      const optionLength = dateSelect[0].querySelectorAll('option[ng-repeat]').length;
       expect(optionLength).toBe(INITIAL_DATES_VALUE.length);
     });
 
     it('displays changed value of dates attr', () => {
       parentScope.datesAttr = CHANGED_DATES_VALUE;
       parentScope.$digest();
-      const optionLength = element[0].querySelectorAll('select > option[ng-repeat]').length;
+      const optionLength = dateSelect[0].querySelectorAll('option[ng-repeat]').length;
       expect(optionLength).toBe(CHANGED_DATES_VALUE.length);
     });
 
     it('invokes search action without params', () => {
-      // get button element and trigger click event
-      const searchButton = angular.element(element[0].querySelector('.search-button'));
       searchButton.triggerHandler('click');
-
       // check if the spy was called with the correct parameter
       expect(parentScope.onGetByParams).not.toHaveBeenCalled();
     });
@@ -68,7 +69,6 @@ describe('Module: components.turnoverForm', () => {
         .val(INITIAL_DATES_VALUE[0])
         .triggerHandler('change');
 
-      const searchButton = angular.element(element[0].querySelector('.search-button'));
       searchButton.triggerHandler('click');
 
       expect(parentScope.onGetByParams).toHaveBeenCalledWith({
@@ -88,7 +88,6 @@ describe('Module: components.turnoverForm', () => {
         .val(INITIAL_DATES_VALUE[0])
         .triggerHandler('change');
 
-      const clearButton = angular.element(element[0].querySelector('.clear-button'));
       clearButton.triggerHandler('click');
 
       expect(stockCodeInput.val()).toBe('');

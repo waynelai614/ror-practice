@@ -9,6 +9,7 @@ describe('Module: components.hero', () => {
 
     let parentScope;
     let element;
+    let linkElement;
 
     beforeEach(() => {
       angular.mock.module(hero);
@@ -27,19 +28,19 @@ describe('Module: components.hero', () => {
         // initiate the Angular’s digest loop to make our changes visible.
         // ex: '{{$ctrl.link}}' => 'https://0.0.0.0:3000'
         parentScope.$digest();
+
+        linkElement = angular.element(element[0].querySelector('.data-source-link'));
       });
     });
 
     it('displays initial value of link attr', () => {
-      const linkValue = angular.element(element[0].querySelector('.data-source-link')).attr('ng-href');
-      expect(linkValue).toBe(INITIAL_VALUE);
+      expect(linkElement.attr('ng-href')).toBe(INITIAL_VALUE);
     });
 
     it('displays changed value of link attr', () => {
       parentScope.linkAttr = CHANGED_VALUE;
       parentScope.$digest();
-      const linkValue = angular.element(element[0].querySelector('.data-source-link')).attr('ng-href');
-      expect(linkValue).toBe(CHANGED_VALUE);
+      expect(linkElement.attr('ng-href')).toBe(CHANGED_VALUE);
     });
   });
 });
