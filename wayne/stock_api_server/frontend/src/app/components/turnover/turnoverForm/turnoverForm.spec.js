@@ -22,11 +22,11 @@ describe('Module: components.turnoverForm', () => {
         parentScope = $rootScope.$new();
         parentScope.datesAttr = INITIAL_DATES_VALUE;
         // assign a Jasmine spy to the parentScope field, to simulate a callback method.
-        parentScope.onGetByParams = jasmine.createSpy('onGetByParams');
+        parentScope.getByParams = jasmine.createSpy('getByParams');
 
         const template = `<turnover-form
           dates="datesAttr"
-          on-get-by-params="onGetByParams($event);"
+          on-get-by-params="getByParams($event);"
         >
         </turnover-form>`;
         element = angular.element(template);
@@ -57,7 +57,7 @@ describe('Module: components.turnoverForm', () => {
     it('invokes search action without params', () => {
       searchButton.triggerHandler('click');
       // check if the spy was called with the correct parameter
-      expect(parentScope.onGetByParams).not.toHaveBeenCalled();
+      expect(parentScope.getByParams).not.toHaveBeenCalled();
     });
 
     it('invokes search action with params', () => {
@@ -71,7 +71,7 @@ describe('Module: components.turnoverForm', () => {
 
       searchButton.triggerHandler('click');
 
-      expect(parentScope.onGetByParams).toHaveBeenCalledWith({
+      expect(parentScope.getByParams).toHaveBeenCalledWith({
         params: {
           codes: TEST_VALUE,
           date: INITIAL_DATES_VALUE[0].replace(/-/g, '')
