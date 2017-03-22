@@ -18,6 +18,8 @@ module.exports = function karmaConfig (config) {
     ],
 
     files: [
+      // This is a polyfill for Object.prototype.assign which is missing from PhantomJS.
+      './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
       // Grab all files in the app folder that contain .spec.
       'src/tests.webpack.js'
     ],
