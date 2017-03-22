@@ -3,6 +3,10 @@
 
 <section class="section">
   <div class="container">
+    <div ng-if="app.state.errorMessage" class="notification is-danger error-message">
+      <button ng-click="app.closeErrorMessage();" class="delete"></button>
+      {{ app.state.errorMessage }}
+    </div>
     <div class="columns">
       <div class="column is-6">
         <turnover-form

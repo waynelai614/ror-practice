@@ -7,6 +7,7 @@ import './app.css';
 
 const DEFAULT_STATE = {
   isLoading: false,
+  errorMessage: false,
   searchTerm: {
     codes: '',
     date: ''
@@ -38,8 +39,13 @@ class AppComponent {
     // copy the default state object
     this.state = Object.assign({}, DEFAULT_STATE);
 
-    this.turnoverService.getTodaysTurnovers().then(response => this.state.turnovers = response.data);
-    this.turnoverService.getDates().then(response => this.state.avaliable_date = response.data);
+    this.turnoverService.getTodaysTurnovers()
+      .then((response) => this.state.turnovers = response.data,
+      () => this.state.errorMessage = 'Error: getTurnovers');
+
+    this.turnoverService.getDates()
+      .then((response) => this.state.avaliable_date = response.data,
+      () => this.state.errorMessage = 'Error: getDates');
   }
 
   getByParams({ params }) {
@@ -48,6 +54,9 @@ class AppComponent {
 
     this.turnoverService.getByParams(params).then(response => {
       this.state.turnovers = response.data;
+      this.state.isLoading = false;
+    }, () => {
+      this.state.errorMessage = 'Error: getTurnovers';
       this.state.isLoading = false;
     });
     this.state.searchTerm = Object.assign({}, this.state.searchTerm, DEFAULT_STATE.searchTerm, params);
@@ -72,6 +81,10 @@ class AppComponent {
       params.push(predicate, direction);
     }
     this.state.link.download_url = this.turnoverService.getDownloadLink(...params);
+  }
+
+  closeErrorMessage() {
+    this.state.errorMessage = false;
   }
 }
 
