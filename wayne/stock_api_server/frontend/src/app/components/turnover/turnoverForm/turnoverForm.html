@@ -1,17 +1,17 @@
 <div class="control is-grouped">
   <p class="control is-expanded">
-    <input class="input" type="text" ng-model="$ctrl.params.codes" placeholder="Enter stock code...">
+    <input class="input stock-codes" type="text" ng-model="$ctrl.params.codes" placeholder="Enter stock code...">
   </p>
   <p class="control is-expanded">
     <span class="select is-fullwidth">
-      <select ng-model="$ctrl.params.date">
+      <select class="stock-date" ng-model="$ctrl.params.date">
         <option value="">Select Date</option>
         <option ng-repeat="d in $ctrl.dates" value="{{d}}">{{d}}</option>
       </select>
     </span>
   </p>
   <p class="control">
-    <a class="button is-info" ng-click="$ctrl.onSearch()">
+    <a class="button is-info search-button" ng-click="$ctrl.onSearch()">
       <span class="icon is-small">
         <i class="fa fa-search"></i>
       </span>
@@ -19,7 +19,7 @@
     </a>
   </p>
   <p class="control">
-    <a class="button is-info is-outlined" ng-click="$ctrl.onClear()">
+    <a class="button is-info is-outlined clear-button" ng-click="$ctrl.onClear()">
       <span>Clear</span>
     </a>
   </p>
