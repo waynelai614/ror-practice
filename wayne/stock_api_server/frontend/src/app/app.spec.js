@@ -1,20 +1,23 @@
+import _ from 'lodash/core';
 import app from './app';
+import { defaultState } from './app.component';
 
 describe('app', () => {
 
-  describe('AppCtrl', () => {
+  describe('app.component', () => {
     let ctrl;
 
     beforeEach(() => {
       angular.mock.module(app);
 
-      angular.mock.inject(($controller) => {
-        ctrl = $controller('AppCtrl', {});
+      angular.mock.inject(($componentController) => {
+        ctrl = $componentController('app');
+        ctrl.$onInit();
       });
     });
 
-    it('should contain the starter url', () => {
-      expect(ctrl.url).toBe('https://github.com/preboot/angular-webpack');
+    it('should contain the default state', () => {
+      expect(_.isEqual(ctrl.state, defaultState)).toBe(true);
     });
   });
 });

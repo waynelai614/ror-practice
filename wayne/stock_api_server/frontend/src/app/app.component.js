@@ -26,6 +26,8 @@ const DEFAULT_STATE = {
   }
 };
 
+export const defaultState = DEFAULT_STATE;
+
 class AppComponent {
   constructor(turnoverService) {
     'ngInject';
