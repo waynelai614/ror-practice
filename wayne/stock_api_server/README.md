@@ -18,11 +18,14 @@ Before starting, you'll need to have those below.
 $ git clone -b dev/wayne git@github.com:waynelai614/ror-practice.git
 $ cd ror-practice/wayne/stock_api_server
 ```
-### Run
+### Running the app
 Boot the app with
 ```
 $ docker-compose up -d
-# setup start cron job & database
+
+# setup start cron job
+# create and migrate database
+# crawl stock website and save data to database
 $ sh ./setup.sh
 ```
 You can list installed cron jobs using `$ crontab -l`
@@ -34,7 +37,7 @@ Visit: [http://0.0.0.0:3000](http://0.0.0.0:3000)
 #POST http://0.0.0.0:3000/api/stock/crawl
 `
 
-### Develop
+### Developing
 Check container name `stockapiserver_web_1` & `stockapiserver_db_1` status is up
 
 `$ docker ps`
@@ -52,5 +55,10 @@ you need to run `$ sh ./webpackBuild.sh` to update static files.
 
 Visit: [http://0.0.0.0:3000/stock](http://0.0.0.0:3000/stock), check everything works!
 
-### Test
-`$ docker-compose run web rspec spec`
+### Testing
+
+* RSpec `$ docker-compose run web rspec spec`
+* Karma
+  * Single run `$ sh ./test.sh`
+  * Live mode `$ sh ./testWatch.sh`
+    * Karma server started at [http://0.0.0.0:9876/](http://0.0.0.0:9876/)
