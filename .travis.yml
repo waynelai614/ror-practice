@@ -1,6 +1,9 @@
 language: ruby
 
-cache: bundler
+cache:
+  bundler: true
+  directories:
+    - ./wayne/stock_api_server/frontend/node_modules
 
 rvm:
   - 2.1.5
@@ -13,14 +16,18 @@ branches:
     - dev/wayne
 
 before_install:
+  - nvm install node
   - cd ./wayne/stock_api_server/
 
 before_script:
-  - psql -c 'create database stock_api_server_test;' -U postgres    
+  - psql -c 'create database stock_api_server_test;' -U postgres
   # change the db connection
   - cp config/database.travis.yml config/database.yml
   - cat config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
+  # npm install and back to rails app dir
+  - cd frontend && npm install && cd ..
 
 script:
   - bundle exec rspec spec
+  - cd frontend && npm test
