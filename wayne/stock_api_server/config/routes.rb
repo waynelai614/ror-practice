@@ -12,6 +12,12 @@ StockApiServer::Application.routes.draw do
   # root to: 'public/stock/index.html'
   root to: redirect('/stock')
 
+  # NOTE: The 'a' is actually a parameter in the Rails 3 Route Globbing technique.
+  # For example, if your url was /this-url-does-not-exist,
+  # then params[:a] equals '/this-url-does-not-exist'.
+  # So be as creative as you'd like handling that rogue route.
+  match 'api/*a', to: 'errors#not_found'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

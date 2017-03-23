@@ -1,3 +1,8 @@
+.notification.error-message {
+  padding: 15px;
+  font-size: 18px
+}
+
 .notification {
   padding: 50px;
   text-align: center;
