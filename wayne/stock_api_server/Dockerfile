@@ -13,11 +13,9 @@ ADD Gemfile.lock /usr/src/stock_api_server/Gemfile.lock
 RUN bundle install
 ADD . /usr/src/stock_api_server
 
-# npm install
-RUN cd frontend && npm install
-
-# back to rails app directory
-WORKDIR /usr/src/stock_api_server
+# Install packages using npm
+ADD ./frontend/package.json /tmp/package.json
+RUN cd /tmp && npm install
 
 # Set the timezone.
 ENV TZ=Asia/Taipei
