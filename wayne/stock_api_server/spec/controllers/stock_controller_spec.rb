@@ -92,7 +92,7 @@ RSpec.describe StockController, type: :controller do
     end
 
     it 'standard date formats' do
-      expect(controller.date_verify(@date)).to eq(@date.to_time)
+      expect(controller.date_verify(@date)).to eq(Time.parse(@date))
     end
 
     it 'unkonwn date formats' do

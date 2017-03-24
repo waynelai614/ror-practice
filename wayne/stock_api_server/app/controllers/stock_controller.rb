@@ -72,7 +72,7 @@ class StockController < ApplicationController
   end
 
   def date_verify(date)
-    date.to_time
+    Time.parse(date)
   rescue ArgumentError
     # date format doesn't match
     Time.now

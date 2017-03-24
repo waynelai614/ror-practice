@@ -54,7 +54,7 @@ RSpec.describe Turnover, type: :model do
       @code = Turnover.first.stock_code
       # get two stock codes from Turnovers
       @codes = Turnover.first(2).map(&:stock_code)
-      @date = Turnover.find_distinct_date[0].to_time
+      @date = Time.parse(Turnover.find_distinct_date[0])
       # '%F' => 2017-03-16
       @date_string = @date.strftime('%F')
     end

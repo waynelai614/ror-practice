@@ -32,7 +32,7 @@ class Turnover < ActiveRecord::Base
 
   def self.find_distinct_date
     Turnover
-      .select("distinct(to_char(created_at, 'YYYY-MM-DD'))")
+      .select("distinct(to_char(created_at AT TIME ZONE 'CST+8', 'YYYY-MM-DD'))")
       .map(&:to_char)
       .sort
       .reverse
