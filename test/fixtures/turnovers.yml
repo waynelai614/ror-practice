@@ -1,27 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  stock_id: 
-  stock_no: 1
+  stock_code: 1
   stock_name: MyString
+  stock_company_url: MyString
   stock_opening_price: 1.5
   stock_highest_price: 1.5
   stock_lowest_price: 1.5
   stock_closing_yesterday: 1.5
   stock_closing_today: 1.5
-  stock_volumn: 1.5
+  stock_volumn: 1
   stock_change: 1.5
-  stock_change-range: 1.5
+  stock_quote_change: MyString
 
 two:
-  stock_id: 
-  stock_no: 1
+  stock_code: 1
   stock_name: MyString
+  stock_company_url: MyString
   stock_opening_price: 1.5
   stock_highest_price: 1.5
   stock_lowest_price: 1.5
   stock_closing_yesterday: 1.5
   stock_closing_today: 1.5
-  stock_volumn: 1.5
+  stock_volumn: 1
   stock_change: 1.5
-  stock_change-range: 1.5
+  stock_quote_change: MyString

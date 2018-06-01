@@ -30,6 +30,7 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.3)
     builder (3.0.4)
+    coderay (1.1.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -52,12 +53,18 @@ GEM
     mail (2.5.5)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.9.0)
     mime-types (1.25.1)
     mini_portile2 (2.3.0)
     multi_json (1.13.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     polyglot (0.3.5)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     rack (1.4.7)
     rack-cache (1.7.2)
       rack (>= 0.4)
@@ -117,7 +124,11 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   nokogiri
+  pry-rails
   rails (= 3.2.22.1)
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)
+
+BUNDLED WITH
+   1.16.2

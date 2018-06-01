@@ -39,3 +39,6 @@ gem 'jquery-rails'
 
 # Use nokogiti to parse html
 gem 'nokogiri'
+
+# debug rails applications
+gem 'pry-rails', group: [:development, :test]

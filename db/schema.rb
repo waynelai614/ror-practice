@@ -11,20 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20180528052851) do
+ActiveRecord::Schema.define(:version => 20180529094542) do
 
   create_table "turnovers", :force => true do |t|
-    t.integer  "stock_id"
-    t.integer  "stock_no"
+    t.integer  "stock_code"
     t.string   "stock_name"
+    t.string   "stock_company_url"
     t.float    "stock_opening_price"
     t.float    "stock_highest_price"
     t.float    "stock_lowest_price"
     t.float    "stock_closing_yesterday"
     t.float    "stock_closing_today"
-    t.float    "stock_volumn"
+    t.integer  "stock_volumn"
     t.float    "stock_change"
-    t.float    "stock_change_range"
+    t.string   "stock_quote_change"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
