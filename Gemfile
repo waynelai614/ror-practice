@@ -42,3 +42,7 @@ gem 'nokogiri'
 
 # debug rails applications
 gem 'pry-rails', group: [:development, :test]
+
+# writing and deploying cron jobs
+gem 'whenever', require: false
+
