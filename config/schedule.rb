@@ -5,12 +5,10 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
+# set :output, '/Users/yiya.chen/Desktop/cron_log.log'
 #
-# every 2.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
+# every 1.minute do
+  # runner 'Crawler.get_data'
 # end
 #
 # every 4.days do
