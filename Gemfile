@@ -46,3 +46,5 @@ gem 'pry-rails', group: [:development, :test]
 # writing and deploying cron jobs
 gem 'whenever', require: false
 
+# A simple Angular.js wrapper for Rails
+gem 'angularjs-rails'

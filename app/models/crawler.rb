@@ -2,13 +2,16 @@ class Crawler
   require 'nokogiri'
   require 'open-uri'
 
+  class << self
 
-  class StockConstants
     # get top 50 turnover
     DATA_COUNT = 50
-  end
+    # parse url
+    PARSE_URL = 
+      open('https://stock.wearn.com/qua.asp')
+      .read.force_encoding('big5')
+      .encode!('utf-8', undef: :replace, replace: '?', invalid: :replace)
 
-  class << self
     def get_data
       doc = parse_source
       table = doc.css('.stockalllistbg2, .stockalllistbg1')
@@ -38,7 +41,7 @@ class Crawler
           stock_change: change,
           stock_quote_change: cells[12].text.partition('%').first.strip }
       end
-      stocks.first(StockConstants::DATA_COUNT)
+      stocks.first(DATA_COUNT)
     end
 
     # save data to database
@@ -46,22 +49,18 @@ class Crawler
     # delete old data first, then insert new data
     def data_to_db
       delete_old_data
-      update_data
+      update_data(get_data)
     end
 
     private
 
     # Fetch and parse HTML document
     def parse_source
-      parse_url = open('https://stock.wearn.com/qua.asp').read
-      parse_url.force_encoding('big5')
-      parse_url.encode!('utf-8', undef: :replace, replace: '?', invalid: :replace)
-      Nokogiri::HTML(parse_url)
+      Nokogiri::HTML(PARSE_URL)
     end
 
     # data_to_db: insert new turnover to database
-    def update_data
-      stocks_data = get_data
+    def update_data(stocks_data)
       stocks_data.each do |stock|
         Turnover.new(stock).save
       end
