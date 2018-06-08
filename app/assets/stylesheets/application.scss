@@ -11,3 +11,36 @@
  *= require_self
  *= require_tree .
  */
+
+////// basic setting //////
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, 'PingFang TC', 'Heiti TC', '微軟正黑體', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif;
+  font-size: 1em;
+  color: #333333;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+h1 {
+  font-size: 1.6em;
+}
+////// common style //////
+.width-wrapper {
+  width: 90%;
+  max-width: 960px;
+  margin: 0 auto;
+}
