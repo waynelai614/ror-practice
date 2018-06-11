@@ -37,7 +37,7 @@ class Crawler
           stock_lowest_price: cells[5].text.strip.to_f,
           stock_closing_yesterday: cells[6].text.strip.to_f,
           stock_closing_today: cells[7].text.strip.to_f,
-          stock_volumn: cells[8].text.strip.to_f,
+          stock_volumn: cells[8].text.strip.to_s,
           stock_change: change,
           stock_quote_change: cells[12].text.partition('%').first.strip }
       end
@@ -50,6 +50,12 @@ class Crawler
     def data_to_db
       delete_old_data
       update_data(get_data)
+    end
+
+    def sort_today
+      Turnover.where(
+        created_at: Time.now.beginning_of_day..Time.now.end_of_day
+      )
     end
 
     # sort date by stock code, date or both.

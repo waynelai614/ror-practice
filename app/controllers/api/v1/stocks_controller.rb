@@ -6,7 +6,7 @@ module Api
 
       # GET /api/v1/stocks, today's turnovers
       def index
-        turnovers = Crawler.get_data
+        turnovers = Crawler.sort_today
         if turnovers.empty?
           render json: {
             status: ERROR_MSG,

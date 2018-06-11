@@ -8,6 +8,15 @@ $go-down: #5CAB7D;
   header {
     padding: 1em 0;
     border-bottom: 1px solid #f7f7f7;
+    h1 {
+      a {
+        color: $text-color;
+        text-decoration: none;
+        &:hover {
+          color: $main-color;
+        }
+      }
+    }
   }
   .filter {
     padding: 1.5rem 0;

@@ -1,6 +1,6 @@
 StockApiServer::Application.routes.draw do
-  get 'board/index.html', to: 'board#index'
-
+  resources :board, only: [:index, :show] do
+  end
   # API routes
   namespace 'api' do
     namespace 'v1' do

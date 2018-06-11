@@ -29,12 +29,16 @@
       <tbody>
         <tr ng-repeat="(key, todaysTurnover) in todaysTurnovers">
         <td>{{ key+1 }}</td>
-          <td>{{ todaysTurnover.stock_code }}</td>
+          <td>
+            <a ng-href="/board/{{ todaysTurnover.stock_code }}" target="_blank">
+              {{ todaysTurnover.stock_code }}
+            </a>
+          </td>
           <td>
             <a ng-href="{{ todaysTurnover.stock_company_url }}" target="_blank">
               {{ todaysTurnover.stock_name }}
-            </a
-          ></td>
+            </a>
+          </td>
           <td>{{ todaysTurnover.stock_opening_price }}</td>
           <td>{{ todaysTurnover.stock_highest_price }}</td>
           <td>{{ todaysTurnover.stock_lowest_price }}</td>
