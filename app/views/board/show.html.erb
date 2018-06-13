@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="(key, todaysTurnover) in todaysTurnovers | orderBy:'-created_at'">
+          <tr ng-repeat="(key, todaysTurnover) in todaysTurnovers | orderBy: volumnRank || dateRank">
           <td>{{ key+1 }}</td>
             <td>
               {{ todaysTurnover.created_at | date:'yyyy-MM-dd'}}
@@ -46,6 +46,10 @@
               </div>
               <div class= "go-down" ng-if="todaysTurnover.stock_change < 0">
                 <font>▼</font>
+                <font>{{ todaysTurnover.stock_change }}</font>
+              </div>
+              <div ng-if="todaysTurnover.stock_change == 0">
+                <font>－</font>
                 <font>{{ todaysTurnover.stock_change }}</font>
               </div>
             </td>

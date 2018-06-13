@@ -7,7 +7,7 @@ class Crawler
     # get top 50 turnover
     DATA_COUNT = 50
     # parse url
-    PARSE_URL = 
+    PARSE_URL =
       open('https://stock.wearn.com/qua.asp')
       .read.force_encoding('big5')
       .encode!('utf-8', undef: :replace, replace: '?', invalid: :replace)
@@ -52,13 +52,19 @@ class Crawler
       update_data(get_data)
     end
 
-    def sort_today
+    # api configuration - get today's turnovers
+    def turnover_today
       Turnover.where(
         created_at: Time.now.beginning_of_day..Time.now.end_of_day
       )
     end
 
-    # sort date by stock code, date or both.
+    # api configuration - get all date
+    def turnover_date
+      Turnover.select('DISTINCT created_at')
+    end
+
+    # api configuration - sort date by stock code, date or both.
     def sort_data(code, date)
       if code.nil?
         Turnover.where(

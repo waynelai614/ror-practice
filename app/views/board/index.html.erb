@@ -1,64 +1,96 @@
-<header>
-  <div class="width-wrapper">
-    <h1>Stock Board</h1>
+<div ng-controller="stockTable">
+  <header>
+    <div class="width-wrapper">
+      <h1>Stock Board</h1>
+    </div>
+  </header>
+  <div class="filter">
+    <div class="filter__wrapper width-wrapper">
+      <ul>
+        <li>
+          <h5>日期</h5>
+          <select ng-model="date" 
+                  ng-change="dateSelected()">
+            <option 
+              ng-value="date" 
+              ng-repeat="(key, date) in turnoversDate  | orderBy:'created_at':true">
+              {{ date | date: 'yyyy-MM-dd' }}
+            </option>
+          </select>
+        </li>
+        <li>
+          <h5>成交量排序</h5>
+          <select ng-model="volumnRank">
+            <option value="">由高至低</option>
+            <option value="stock_volumn">由低至高</option>
+          </select>
+        </li>
+        <li>
+          <h5>代號</h5>
+          <select ng-model="code" 
+                  ng-options="stock for stock in allStockCode" 
+                  ng-change="codeSelected()">
+            <option value="">全部</option>
+          </select>
+        </li>
+      </ul>
+    </div>
   </div>
-</header>
-<div class="filter">
-  <div class="filter__wrapper width-wrapper">
-    filter section
+  <div class="board-table">
+    <div class="board-table__wrapper width-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th> 排 </th>
+            <th> 代號 </th>
+            <th> 名稱 </th>
+            <th> 開盤價 </th>
+            <th> 最高價 </th>
+            <th> 最低價 </th>
+            <th> 昨收盤 </th>
+            <th> 今收盤 </th>
+            <th> 成交量 </th>
+            <th> 漲跌 </th>
+            <th> 漲跌幅 </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key, todaysTurnover) in turnoversByDate | orderBy: volumnRank">
+          <td>{{ key+1 }}</td>
+            <td>
+              <a ng-href="/board/{{ todaysTurnover.stock_code }}" target="_blank">
+                {{ todaysTurnover.stock_code }}
+              </a>
+            </td>
+            <td>
+              <a ng-href="{{ todaysTurnover.stock_company_url }}" target="_blank">
+                {{ todaysTurnover.stock_name }}
+              </a>
+            </td>
+            <td>{{ todaysTurnover.stock_opening_price }}</td>
+            <td>{{ todaysTurnover.stock_highest_price }}</td>
+            <td>{{ todaysTurnover.stock_lowest_price }}</td>
+            <td>{{ todaysTurnover.stock_closing_yesterday }}</td>
+            <td>{{ todaysTurnover.stock_closing_today }}</td>
+            <td>{{ todaysTurnover.stock_volumn }}</td>
+            <td>
+              <div class= "go-up" ng-if="todaysTurnover.stock_change > 0">
+                <font>▲</font>
+                <font>{{ todaysTurnover.stock_change }}</font>
+              </div>
+              <div class= "go-down" ng-if="todaysTurnover.stock_change < 0">
+                <font>▼</font>
+                <font>{{ todaysTurnover.stock_change }}</font>
+              </div>
+              <div ng-if="todaysTurnover.stock_change == 0">
+                <font>－</font>
+                <font>{{ todaysTurnover.stock_change }}</font>
+              </div>
+            </td>
+            <td>{{ todaysTurnover.stock_quote_change }}％</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<div class="board-table" ng-controller="stockTable">
-  <div class="board-table__wrapper width-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th> 排 </th>
-          <th> 代號 </th>
-          <th> 名稱 </th>
-          <th> 開盤價 </th>
-          <th> 最高價 </th>
-          <th> 最低價 </th>
-          <th> 昨收盤 </th>
-          <th> 今收盤 </th>
-          <th> 成交量 </th>
-          <th> 漲跌 </th>
-          <th> 漲跌幅 </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="(key, todaysTurnover) in todaysTurnovers">
-        <td>{{ key+1 }}</td>
-          <td>
-            <a ng-href="/board/{{ todaysTurnover.stock_code }}" target="_blank">
-              {{ todaysTurnover.stock_code }}
-            </a>
-          </td>
-          <td>
-            <a ng-href="{{ todaysTurnover.stock_company_url }}" target="_blank">
-              {{ todaysTurnover.stock_name }}
-            </a>
-          </td>
-          <td>{{ todaysTurnover.stock_opening_price }}</td>
-          <td>{{ todaysTurnover.stock_highest_price }}</td>
-          <td>{{ todaysTurnover.stock_lowest_price }}</td>
-          <td>{{ todaysTurnover.stock_closing_yesterday }}</td>
-          <td>{{ todaysTurnover.stock_closing_today }}</td>
-          <td>{{ todaysTurnover.stock_volumn }}</td>
-          <td>
-            <div class= "go-up" ng-if="todaysTurnover.stock_change > 0">
-              <font>▲</font>
-              <font>{{ todaysTurnover.stock_change }}</font>
-            </div>
-            <div class= "go-down" ng-if="todaysTurnover.stock_change < 0">
-              <font>▼</font>
-              <font>{{ todaysTurnover.stock_change }}</font>
-            </div>
-          </td>
-          <td>{{ todaysTurnover.stock_quote_change }}％</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <p>{{todaysTurnover}}</p>
 </div>
