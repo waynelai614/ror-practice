@@ -6,17 +6,19 @@ module Api
 
       # GET /api/v1/stocks, today's turnovers
       def index
-        turnovers = Crawler.sort_today
-        if turnovers.empty?
+        turnover_today = Crawler.turnover_today
+        turnover_date = Crawler.turnover_date
+        if turnover_today.empty?
           render json: {
             status: ERROR_MSG,
             message: 'Something wrong with data parsing'
-          }, status: 400
+          }, status: :bad_request
         else
           render json: {
             status: SUCCESS_MSG,
-            message: 'Loaded today\'s turnovers',
-            data: turnovers
+            message: 'Loaded turnovers',
+            today: turnover_today,
+            date: turnover_date
         }, status: :ok
         end
       end
@@ -28,7 +30,7 @@ module Api
           render json: {
             status: ERROR_MSG,
             message: 'No match data'
-          }, status: 400
+          }, status: :bad_request
         else
           render json: {
             status: SUCCESS_MSG,

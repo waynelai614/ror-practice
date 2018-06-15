@@ -1,62 +1,14 @@
 <div ng-controller="stockTableByCode">
   <header>
-    <div class="width-wrapper">
-      <h1><a href="/">Stock Board</a> - 代號 {{codePath}}</h1>
-    </div>
+    <head-title/>
   </header>
   <div class="board-table">
     <div class="board-table__wrapper width-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th> 排 </th>
-            <th> 日期 </th>
-            <th> 名稱 </th>
-            <th> 開盤價 </th>
-            <th> 最高價 </th>
-            <th> 最低價 </th>
-            <th> 昨收盤 </th>
-            <th> 今收盤 </th>
-            <th> 成交量 </th>
-            <th> 漲跌 </th>
-            <th> 漲跌幅 </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="(key, todaysTurnover) in todaysTurnovers | orderBy: volumnRank || dateRank">
-          <td>{{ key+1 }}</td>
-            <td>
-              {{ todaysTurnover.created_at | date:'yyyy-MM-dd'}}
-            </td>
-            <td>
-              <a ng-href="{{ todaysTurnover.stock_company_url }}" target="_blank">
-                {{ todaysTurnover.stock_name }}
-              </a>
-            </td>
-            <td>{{ todaysTurnover.stock_opening_price }}</td>
-            <td>{{ todaysTurnover.stock_highest_price }}</td>
-            <td>{{ todaysTurnover.stock_lowest_price }}</td>
-            <td>{{ todaysTurnover.stock_closing_yesterday }}</td>
-            <td>{{ todaysTurnover.stock_closing_today }}</td>
-            <td>{{ todaysTurnover.stock_volumn }}</td>
-            <td>
-              <div class= "go-up" ng-if="todaysTurnover.stock_change > 0">
-                <font>▲</font>
-                <font>{{ todaysTurnover.stock_change }}</font>
-              </div>
-              <div class= "go-down" ng-if="todaysTurnover.stock_change < 0">
-                <font>▼</font>
-                <font>{{ todaysTurnover.stock_change }}</font>
-              </div>
-              <div ng-if="todaysTurnover.stock_change == 0">
-                <font>－</font>
-                <font>{{ todaysTurnover.stock_change }}</font>
-              </div>
-            </td>
-            <td>{{ todaysTurnover.stock_quote_change }}％</td>
-          </tr>
-        </tbody>
-      </table>
+      <custom-table 
+        th-names="thNames" 
+        turnovers-name="todaysTurnovers" 
+        code-path="codePath">
+      </custom-table>
     </div>
   </div>
 </div>
