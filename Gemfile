@@ -37,7 +37,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-# Use nokogiti to parse html
+# Use nokogiri to parse html
 gem 'nokogiri'
 
 # debug rails applications
